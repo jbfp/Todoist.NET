@@ -1,0 +1,6 @@
+C:\Users\Jakob\Todoist.NET\Todoist.NET\bin\Debug\TodoitLib.dll
+C:\Users\Jakob\Todoist.NET\Todoist.NET\bin\Debug\TodoitLib.pdb
+C:\Users\Jakob\Todoist.NET\Todoist.NET\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Jakob\Todoist.NET\Todoist.NET\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Jakob\Todoist.NET\Todoist.NET\obj\Debug\TodoitLib.dll
+C:\Users\Jakob\Todoist.NET\Todoist.NET\obj\Debug\TodoitLib.pdb

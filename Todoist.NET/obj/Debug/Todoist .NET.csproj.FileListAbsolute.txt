@@ -1,0 +1,6 @@
+C:\Users\Jakob\documents\visual studio 2010\Projects\TodoitLib\TodoitLib\bin\Debug\TodoitLib.dll
+C:\Users\Jakob\documents\visual studio 2010\Projects\TodoitLib\TodoitLib\bin\Debug\TodoitLib.pdb
+C:\Users\Jakob\documents\visual studio 2010\Projects\TodoitLib\TodoitLib\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Jakob\documents\visual studio 2010\Projects\TodoitLib\TodoitLib\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Jakob\documents\visual studio 2010\Projects\TodoitLib\TodoitLib\obj\Debug\TodoitLib.dll
+C:\Users\Jakob\documents\visual studio 2010\Projects\TodoitLib\TodoitLib\obj\Debug\TodoitLib.pdb
