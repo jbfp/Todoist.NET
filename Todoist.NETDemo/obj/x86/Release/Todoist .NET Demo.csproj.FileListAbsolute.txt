@@ -4,10 +4,10 @@ C:\Users\Jakob\Todoist.NET\Todoist.NETDemo\bin\Release\TodoitLib.dll
 C:\Users\Jakob\Todoist.NET\Todoist.NETDemo\bin\Release\Newtonsoft.Json.dll
 C:\Users\Jakob\Todoist.NET\Todoist.NETDemo\bin\Release\TodoitLib.pdb
 C:\Users\Jakob\Todoist.NET\Todoist.NETDemo\obj\x86\Release\ResolveAssemblyReference.cache
-C:\Users\Jakob\Todoist.NET\Todoist.NETDemo\obj\x86\Release\TodoistDotNetDemo.CreateProjectForm.resources
-C:\Users\Jakob\Todoist.NET\Todoist.NETDemo\obj\x86\Release\TodoistDotNetDemo.Form1.resources
 C:\Users\Jakob\Todoist.NET\Todoist.NETDemo\obj\x86\Release\TodoLibDemo.Properties.Resources.resources
 C:\Users\Jakob\Todoist.NET\Todoist.NETDemo\obj\x86\Release\GenerateResource.read.1.tlog
 C:\Users\Jakob\Todoist.NET\Todoist.NETDemo\obj\x86\Release\GenerateResource.write.1.tlog
 C:\Users\Jakob\Todoist.NET\Todoist.NETDemo\obj\x86\Release\TodoLibDemo.exe
 C:\Users\Jakob\Todoist.NET\Todoist.NETDemo\obj\x86\Release\TodoLibDemo.pdb
+C:\Users\Jakob\Todoist.NET\Todoist.NETDemo\obj\x86\Release\Todoist.NET.Demo.CreateProjectForm.resources
+C:\Users\Jakob\Todoist.NET\Todoist.NETDemo\obj\x86\Release\Todoist.NET.Demo.Form1.resources

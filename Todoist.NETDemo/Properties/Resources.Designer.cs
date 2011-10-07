@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TodoistDotNetDemo.Properties
+namespace Todoist.NET.Demo.Properties
 {
 
 

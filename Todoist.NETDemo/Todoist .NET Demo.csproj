@@ -89,12 +89,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Todoist.NET\Todoist.NET.csproj">
       <Project>{382AF854-195B-4310-8815-5EDDB6DD59A6}</Project>
-      <Name>TodoLib</Name>
+      <Name>Todoist.NET</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
