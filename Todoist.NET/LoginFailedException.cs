@@ -1,4 +1,5 @@
 #region License
+
 // Copyright (c) 2011 Jakob Pedersen
 //
 // Permission is hereby granted, free of charge, to any person
@@ -21,7 +22,9 @@
 // WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 // OTHER DEALINGS IN THE SOFTWARE.
+
 #endregion
+
 using System;
 using System.Runtime.Serialization;
 
@@ -44,7 +47,7 @@ namespace Todoist.NET
         }
 
         protected LoginFailedException(SerializationInfo info, StreamingContext context)
-            : base (info, context)
+            : base(info, context)
         {
         }
     }

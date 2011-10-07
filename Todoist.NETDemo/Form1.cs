@@ -1,4 +1,5 @@
 ﻿#region License
+
 // Copyright (c) 2011 Jakob Pedersen
 //
 // Permission is hereby granted, free of charge, to any person
@@ -21,11 +22,12 @@
 // WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 // OTHER DEALINGS IN THE SOFTWARE.
+
 #endregion
+
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using Todoist.NET;
 
 namespace Todoist.NET.Demo
 {
@@ -46,18 +48,19 @@ namespace Todoist.NET.Demo
         private void InitializeColorComboBox()
         {
             colorComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
-            var greenItem = new ComboBoxItem {Colour = new TodoistColor(TodoistColorEnum.Green).RGB};
-            var redItem = new ComboBoxItem { Colour = new TodoistColor(TodoistColorEnum.Red).RGB };
-            var orangeItem = new ComboBoxItem { Colour = new TodoistColor(TodoistColorEnum.Orange).RGB };
-            var yellowItem = new ComboBoxItem { Colour = new TodoistColor(TodoistColorEnum.Yellow).RGB };
-            var blueItem = new ComboBoxItem { Colour = new TodoistColor(TodoistColorEnum.Blue).RGB };
-            var mediumGreyItem = new ComboBoxItem { Colour = new TodoistColor(TodoistColorEnum.MediumGrey).RGB };
-            var pinkItem = new ComboBoxItem { Colour = new TodoistColor(TodoistColorEnum.Pink).RGB };
-            var lightGreyItem = new ComboBoxItem { Colour = new TodoistColor(TodoistColorEnum.LightGrey).RGB };
-            var flameItem = new ComboBoxItem { Colour = new TodoistColor(TodoistColorEnum.Flame).RGB };
-            var goldItem = new ComboBoxItem { Colour = new TodoistColor(TodoistColorEnum.Gold).RGB };
-            var lightOpalItem = new ComboBoxItem { Colour = new TodoistColor(TodoistColorEnum.LightOpal).RGB };
-            var brilliantCeruleanItem = new ComboBoxItem { Colour = new TodoistColor(TodoistColorEnum.BrilliantCerulean).RGB };
+            var greenItem = new ComboBoxItem {Color = new TodoistColor(TodoistColorEnum.Green).RGB};
+            var redItem = new ComboBoxItem {Color = new TodoistColor(TodoistColorEnum.Red).RGB};
+            var orangeItem = new ComboBoxItem {Color = new TodoistColor(TodoistColorEnum.Orange).RGB};
+            var yellowItem = new ComboBoxItem {Color = new TodoistColor(TodoistColorEnum.Yellow).RGB};
+            var blueItem = new ComboBoxItem {Color = new TodoistColor(TodoistColorEnum.Blue).RGB};
+            var mediumGreyItem = new ComboBoxItem {Color = new TodoistColor(TodoistColorEnum.MediumGrey).RGB};
+            var pinkItem = new ComboBoxItem {Color = new TodoistColor(TodoistColorEnum.Pink).RGB};
+            var lightGreyItem = new ComboBoxItem {Color = new TodoistColor(TodoistColorEnum.LightGrey).RGB};
+            var flameItem = new ComboBoxItem {Color = new TodoistColor(TodoistColorEnum.Flame).RGB};
+            var goldItem = new ComboBoxItem {Color = new TodoistColor(TodoistColorEnum.Gold).RGB};
+            var lightOpalItem = new ComboBoxItem {Color = new TodoistColor(TodoistColorEnum.LightOpal).RGB};
+            var brilliantCeruleanItem = new ComboBoxItem
+                                            {Color = new TodoistColor(TodoistColorEnum.BrilliantCerulean).RGB};
             colorComboBox.Items.AddRange(new object[]
                                              {
                                                  greenItem, redItem, orangeItem, yellowItem,
@@ -77,7 +80,6 @@ namespace Todoist.NET.Demo
                     return;
 
                 _user.Login(emailBox.Text, passwordBox.Text);
-                ;
             }
             catch (LoginFailedException loginFailedException)
             {
@@ -139,7 +141,7 @@ namespace Todoist.NET.Demo
         {
             _user.UpdateProject(Convert.ToInt32(idBox.Text),
                                 nameBox.Text,
-                                (TodoistColorEnum)colorComboBox.SelectedIndex, 
+                                (TodoistColorEnum) colorComboBox.SelectedIndex,
                                 Convert.ToInt32(indentBox.Value),
                                 Convert.ToInt32(orderBox.Value),
                                 Convert.ToBoolean(isCollapsedComboBox.SelectedIndex));

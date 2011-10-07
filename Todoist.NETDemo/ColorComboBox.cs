@@ -1,4 +1,5 @@
 ﻿#region License
+
 // Copyright (c) 2011 Jakob Pedersen
 //
 // Permission is hereby granted, free of charge, to any person
@@ -21,7 +22,9 @@
 // WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 // OTHER DEALINGS IN THE SOFTWARE.
+
 #endregion
+
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -38,14 +41,14 @@ namespace Todoist.NET.Demo
         private void ComboBoxItemDrawItem(object sender, DrawItemEventArgs e)
         {
             e.DrawBackground();
-            var current = (ComboBoxItem)Items[e.Index];
+            var current = (ComboBoxItem) Items[e.Index];
             var boundRect = new Rectangle(e.Bounds.Left, e.Bounds.Top, e.Bounds.Width, e.Bounds.Height);
-            e.Graphics.FillRectangle(new SolidBrush(current.Colour), boundRect);
+            e.Graphics.FillRectangle(new SolidBrush(current.Color), boundRect);
         }
     }
 
     public struct ComboBoxItem
     {
-        public Color Colour { get; set; }
+        public Color Color { get; set; }
     }
 }

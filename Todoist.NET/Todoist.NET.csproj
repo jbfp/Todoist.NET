@@ -8,8 +8,8 @@
     <ProjectGuid>{382AF854-195B-4310-8815-5EDDB6DD59A6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TodoLib</RootNamespace>
-    <AssemblyName>TodoitLib</AssemblyName>
+    <RootNamespace>Todoist.NET</RootNamespace>
+    <AssemblyName>Todoist.NET</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

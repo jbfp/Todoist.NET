@@ -1,4 +1,5 @@
 ﻿#region License
+
 // Copyright (c) 2011 Jakob Pedersen
 //
 // Permission is hereby granted, free of charge, to any person
@@ -21,28 +22,16 @@
 // WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 // OTHER DEALINGS IN THE SOFTWARE.
+
 #endregion
-using Newtonsoft.Json.Linq;
+
 using System;
+using Newtonsoft.Json.Linq;
 
 namespace Todoist.NET
 {
     public class Item
     {
-        public int Id { get; private set; }
-        public int OwnerId { get; private set; }
-        public bool IsSubTasksCollapsed { get; private set; }
-        public bool IsInHistory { get; private set; }
-        public int Priority { get; private set; }
-        public int ItemOrder { get; private set; }
-        public string Content { get; private set; }
-        public int Indent { get; private set; }
-        public int ProjectId { get; private set; }
-        public bool IsChecked { get; private set; }
-        public string DateString { get; private set; }
-        public string DueDate { get; private set; }
-        public string JsonData { get; private set; }
-
         /// <summary>
         /// 
         /// </summary>
@@ -50,8 +39,8 @@ namespace Todoist.NET
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="jsonData"/> is null.</exception>
         public Item(string jsonData)
         {
-            var o = JObject.Parse(jsonData);
-            
+            JObject o = JObject.Parse(jsonData);
+
             if (o.First == null)
                 throw new ArgumentNullException(jsonData);
 
@@ -69,5 +58,19 @@ namespace Todoist.NET
             DueDate = (string) o.SelectToken("due_date");
             JsonData = jsonData;
         }
+
+        public int Id { get; private set; }
+        public int OwnerId { get; private set; }
+        public bool IsSubTasksCollapsed { get; private set; }
+        public bool IsInHistory { get; private set; }
+        public int Priority { get; private set; }
+        public int ItemOrder { get; private set; }
+        public string Content { get; private set; }
+        public int Indent { get; private set; }
+        public int ProjectId { get; private set; }
+        public bool IsChecked { get; private set; }
+        public string DateString { get; private set; }
+        public string DueDate { get; private set; }
+        public string JsonData { get; private set; }
     }
 }

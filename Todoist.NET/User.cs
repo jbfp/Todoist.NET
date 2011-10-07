@@ -1,4 +1,5 @@
 ﻿#region License
+
 // Copyright (c) 2011 Jakob Pedersen
 //
 // Permission is hereby granted, free of charge, to any person
@@ -21,7 +22,9 @@
 // WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 // OTHER DEALINGS IN THE SOFTWARE.
+
 #endregion
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -116,53 +119,102 @@ namespace Todoist.NET
     {
         #region Properties
 
-        private int _id;
-        public int Id { get { return _id; } }
-
-        private string _email;
-        public string Email { get { return _email; } }
-
-        private string _fullName;
-        public string FullName { get { return _fullName; } }
-
         private string _apiToken;
-        public string ApiToken { get { return _apiToken; } }
-
-        private StartPage? _startPage;
-        public StartPage? StartPage { get { return _startPage; } }
-
-        private string[] _timeZone;
-        public string[] TimeZone { get { return _timeZone; } }
-
-        private TimeZoneOffset _timeZoneOffset;
-        public TimeZoneOffset TimeZoneOffset { get { return _timeZoneOffset; } }
-
-        private TimeFormat _timeFormat;
-        public TimeFormat TimeFormat { get { return _timeFormat; } }
-
         private DateFormat _dateFormat;
-        public DateFormat DateFormat { get { return _dateFormat; } }
-
-        private SortOrder _sortOrder;
-        public SortOrder SortOrder { get { return _sortOrder; } }
-
-        private string _notifoAccount;
-        public string NotifoAccount { get { return _notifoAccount; } }
-
-        private string _mobileNumber;
-        public string MobileNumber { get { return _mobileNumber; } }
-
-        private string _mobileHost;
-        public string MobileHost { get { return _mobileHost; } }
-
-        private string _premiumUntil;
-        public string PremiumUntil { get { return _premiumUntil; } }
-
         private DefaultReminder _defaultReminder;
-        public DefaultReminder DefaultReminder { get { return _defaultReminder; } }
-
+        private string _email;
+        private string _fullName;
+        private int _id;
         private string _jsonData;
-        public string JsonData { get { return _jsonData; } }
+        private string _mobileHost;
+        private string _mobileNumber;
+        private string _notifoAccount;
+        private string _premiumUntil;
+        private SortOrder _sortOrder;
+        private StartPage? _startPage;
+        private TimeFormat _timeFormat;
+        private string[] _timeZone;
+        private TimeZoneOffset _timeZoneOffset;
+
+        public int Id
+        {
+            get { return _id; }
+        }
+
+        public string Email
+        {
+            get { return _email; }
+        }
+
+        public string FullName
+        {
+            get { return _fullName; }
+        }
+
+        public string ApiToken
+        {
+            get { return _apiToken; }
+        }
+
+        public StartPage? StartPage
+        {
+            get { return _startPage; }
+        }
+
+        public string[] TimeZone
+        {
+            get { return _timeZone; }
+        }
+
+        public TimeZoneOffset TimeZoneOffset
+        {
+            get { return _timeZoneOffset; }
+        }
+
+        public TimeFormat TimeFormat
+        {
+            get { return _timeFormat; }
+        }
+
+        public DateFormat DateFormat
+        {
+            get { return _dateFormat; }
+        }
+
+        public SortOrder SortOrder
+        {
+            get { return _sortOrder; }
+        }
+
+        public string NotifoAccount
+        {
+            get { return _notifoAccount; }
+        }
+
+        public string MobileNumber
+        {
+            get { return _mobileNumber; }
+        }
+
+        public string MobileHost
+        {
+            get { return _mobileHost; }
+        }
+
+        public string PremiumUntil
+        {
+            get { return _premiumUntil; }
+        }
+
+        public DefaultReminder DefaultReminder
+        {
+            get { return _defaultReminder; }
+        }
+
+        public string JsonData
+        {
+            get { return _jsonData; }
+        }
 
         #endregion
 
@@ -274,9 +326,9 @@ namespace Todoist.NET
 
             JToken tzStr = o.SelectToken("tz_offset");
             _timeZoneOffset = new TimeZoneOffset(tzStr.First.Value<string>(),
-                                                tzStr.First.Next.Value<int>(),
-                                                tzStr.First.Next.Next.Value<int>(),
-                                                tzStr.First.Next.Next.Next.Value<bool>());
+                                                 tzStr.First.Next.Value<int>(),
+                                                 tzStr.First.Next.Next.Value<int>(),
+                                                 tzStr.First.Next.Next.Next.Value<bool>());
 
             switch ((string) o.SelectToken("default_reminder"))
             {
@@ -346,7 +398,6 @@ namespace Todoist.NET
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="token"></param>
         /// <param name="email"></param>
         /// <param name="fullName"></param>
         /// <param name="password"></param>
@@ -449,12 +500,14 @@ namespace Todoist.NET
 
             if (indent < 1 || indent > 4)
             {
-                throw new ArgumentOutOfRangeException("The indent value must be between 1 and 4.");
+                throw new ArgumentOutOfRangeException(indent.ToString(),
+                                                      new Exception("The indent value must be between 1 and 4."));
             }
 
             Uri uri = Core.ConstructUri("addProject?",
                                         String.Format("token={0}&name={1}&indent={2}&order={3}&color={4}",
-                                                      ApiToken, projectName, indent, order, color.TodoistColorEnum.GetHashCode()),
+                                                      ApiToken, projectName, indent, order,
+                                                      color.TodoistColorEnum.GetHashCode()),
                                         false);
             string jsonResponse = Core.GetJsonData(uri);
             if (jsonResponse == "\"ERROR_NAME_IS_EMPTY\"")
@@ -478,9 +531,9 @@ namespace Todoist.NET
         {
             CheckLoginStatus();
 
-            var _color = color;
+            TodoistColorEnum? internalColor = color;
             if (color == null)
-                _color = this.GetProject(projectId).Color.TodoistColorEnum;
+                internalColor = GetProject(projectId).Color.TodoistColorEnum;
 
 
             Uri uri = Core.ConstructUri("updateProject?",
@@ -489,7 +542,7 @@ namespace Todoist.NET
                                             projectId,
                                             ApiToken,
                                             name.Replace("*", String.Empty),
-                                            _color.GetHashCode(),
+                                            internalColor.GetHashCode(),
                                             indent,
                                             itemOrder,
                                             Convert.ToInt32(isCollapsed)),
@@ -665,9 +718,11 @@ namespace Todoist.NET
             CheckLoginStatus();
 
             if (priority < 1 || priority > 4)
-                throw new ArgumentOutOfRangeException("priority must be between 1 and 4.");
+                throw new ArgumentOutOfRangeException(priority.ToString(),
+                                                      new Exception("Priority must be between 1 and 4."));
             if (indent < 1 || indent > 4)
-                throw new ArgumentOutOfRangeException("Indent must be between 1 and 4.");
+                throw new ArgumentOutOfRangeException(indent.ToString(),
+                                                      new Exception("Indent must be between 1 and 4."));
 
             Uri uri = Core.ConstructUri("addItem?",
                                         String.Format(
@@ -739,7 +794,6 @@ namespace Todoist.NET
         public void MoveItem(int projectId)
         {
             CheckLoginStatus();
-
         }
 
         /// <summary>
