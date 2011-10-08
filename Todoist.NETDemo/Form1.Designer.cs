@@ -130,7 +130,7 @@ namespace Todoist.NET.Demo
             this.loginButton.Name = "loginButton";
             this.loginButton.Size = new System.Drawing.Size(75, 23);
             this.loginButton.TabIndex = 4;
-            this.loginButton.Text = "Login";
+            this.loginButton.Text = "LogOn";
             this.loginButton.UseVisualStyleBackColor = true;
             this.loginButton.Click += new System.EventHandler(this.LoginButtonClick);
             // 

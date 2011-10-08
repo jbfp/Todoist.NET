@@ -47,8 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="LoginFailedException.cs" />
+    <Compile Include="LogOnFailedException.cs" />
     <Compile Include="ItemException.cs" />
     <Compile Include="Core.cs" />
     <Compile Include="Note.cs" />

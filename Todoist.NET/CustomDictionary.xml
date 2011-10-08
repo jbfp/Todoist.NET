@@ -4,6 +4,17 @@
     <Recognized>
       <Word>Todoist</Word>
       <Word>todoist</Word>
+      <Word>Notifo</Word>
+      <Word>Rgb</Word>
+      <Word>Yyyy</Word>
+      <Word>Dd</Word>
+      <Word>Mm</Word>
+      <Word>Uncomplete</Word>
     </Recognized>
   </Words>
+  <Acronyms>
+    <CasingExceptions>
+      <Acronym>NET</Acronym>
+    </CasingExceptions>
+  </Acronyms>
 </Dictionary>

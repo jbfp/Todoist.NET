@@ -131,17 +131,17 @@ namespace Todoist.NET
     /// <summary>
     /// 
     /// </summary>
-    public enum LoginResult
+    public enum LogOnResult
     {
         /// <summary>
-        /// LoginFailed returned when login fail (usually due to wrong password/email)
+        /// LogOnFailed returned when login fail (usually due to wrong password/email)
         /// </summary>
-        LoginFailed,
+        LogOnFailed,
 
         /// <summary>
-        /// LoginSucceeded when login succeeded
+        /// LogOnSucceeded when login succeeded
         /// </summary>
-        LoginSucceeded
+        LogOnSucceeded
     }
 
     /// <summary>
@@ -296,6 +296,23 @@ namespace Todoist.NET
             get { return _jsonData; }
         }
 
+        /// <summary>
+        /// Returns all of user's projects.
+        /// </summary>
+        public ReadOnlyCollection<Project> GetProjects
+        {
+            get
+            {
+                CheckLoginStatus();
+
+                Uri uri = Core.ConstructUri("getProjects?", "token=" + ApiToken, false);
+                string jsonResponse = Core.GetJsonData(uri);
+
+                JArray o = JArray.Parse(jsonResponse);
+                return new ReadOnlyCollection<Project>(o.Root.Select(p => new Project(p.ToString())).ToList());
+            }
+        }
+        
         #endregion
 
         #region User
@@ -305,19 +322,19 @@ namespace Todoist.NET
         /// </summary>
         public User()
         {
-            Logout();
+            LogOff();
         }
 
         /// <summary>
-        /// Login user into Todoist to get a token. Required to do any communication.
+        /// LogOn user into Todoist to get a token. Required to do any communication.
         /// </summary>
         /// <param name="email">User's email address.</param>
         /// <param name="password">User's password.</param>
         /// <exception cref="ArgumentNullException">If <paramref name="email"/> or <paramref name="password"/> is null.</exception>
-        /// <exception cref="LoginFailedException">If <paramref name="email"/> or <paramref name="password"/> is incorrect.</exception>
-        public LoginResult Login(string email, string password)
+        /// <exception cref="LogOnFailedException">If <paramref name="email"/> or <paramref name="password"/> is incorrect.</exception>
+        public LogOnResult LogOn(string email, string password)
         {
-            Logout();
+            LogOff();
             if (String.IsNullOrWhiteSpace(email))
                 throw new ArgumentNullException(email);
 
@@ -332,19 +349,19 @@ namespace Todoist.NET
 
             if (tempJson == "\"LOGIN_ERROR\"")
             {
-                throw new LoginFailedException("Login failed.");
+                throw new LogOnFailedException("LogOn failed.");
             }
 
             _jsonData = tempJson;
             AnalyseJson();
 
-            return LoginResult.LoginSucceeded;
+            return LogOnResult.LogOnSucceeded;
         }
 
         /// <summary>
         /// Resets all properties, because there is no real logging out from Todoist.com
         /// </summary>
-        public void Logout()
+        public void LogOff()
         {
             _id = 0;
             _email = "";
@@ -522,20 +539,6 @@ namespace Todoist.NET
         #region Project
 
         /// <summary>
-        /// Returns all of user's projects.
-        /// </summary>
-        public ReadOnlyCollection<Project> GetProjects()
-        {
-            CheckLoginStatus();
-
-            Uri uri = Core.ConstructUri("getProjects?", "token=" + ApiToken, false);
-            string jsonResponse = Core.GetJsonData(uri);
-
-            JArray o = JArray.Parse(jsonResponse);
-            return new ReadOnlyCollection<Project>(o.Root.Select(p => new Project(p.ToString())).ToList());
-        }
-
-        /// <summary>
         /// Return's data about a project. It does not have to be a project in the collection, 
         /// but it must still be a project the user owns. This will not add the project to the collection.
         /// </summary>
@@ -564,7 +567,7 @@ namespace Todoist.NET
         }
 
         /// <summary>
-        /// Create a new project. Call <see cref="GetProjects"/> on the project collection to refresh it.
+        /// Create a new project. Call <see cref="GetProjects()"/> on the project collection to refresh it.
         /// </summary>
         /// <param name="projectName">Name</param>
         /// <param name="color">Color</param>
@@ -672,7 +675,7 @@ namespace Todoist.NET
         }
 
         /// <summary>
-        /// Delete an existing project. Call <see cref="GetProjects"/> on the project collection to refresh it.
+        /// Delete an existing project. Call <see cref="GetProjects()"/> on the project collection to refresh it.
         /// </summary>
         /// <param name="projectId">The id of the project to delete</param>
         public void DeleteProject(int projectId)
@@ -889,10 +892,39 @@ namespace Todoist.NET
         /// <summary>
         /// Move items from one project to another.
         /// </summary>
-        public void MoveItem(int projectId)
+        public void MoveItems(int[] itemIds, int fromProjectId, int toProjectId)
         {
             CheckLoginStatus();
-            throw new NotImplementedException("Don't worry, this is next on the list.");
+
+            // Validation
+            if (itemIds == null)
+                throw new ArgumentNullException("itemIds");
+
+            var items = GetItemsById(itemIds);
+            if (items.Any(item => item.ProjectId != fromProjectId))
+            {
+                throw new ItemException(String.Format("The item does not exist in {0}.", fromProjectId));
+            }
+            if (itemIds.Where((t, i) => items[i].ProjectId == toProjectId).Any())
+            {
+                throw new ItemException("The item already exists in the destination project.");
+            }
+
+            // Build JSON mapping
+            var jsonMapping = new StringBuilder();
+            jsonMapping.Append("{\"" + fromProjectId + "\":[");
+            foreach (var item in items)
+            {
+                jsonMapping.Append(String.Format("\"{0}\",", item.Id));
+            }
+            if (jsonMapping.ToString().ElementAt(jsonMapping.Length - 1) == ',')
+                jsonMapping.Remove(jsonMapping.Length - 1, 1);
+            jsonMapping.Append("]}");
+
+            Uri uri = Core.ConstructUri("moveItems?",
+                                        String.Format("token={0}&project_items={1}&to_project={2}", ApiToken,
+                                                      jsonMapping, toProjectId), false);
+            Core.GetJsonData(uri);
         }
 
         /// <summary>

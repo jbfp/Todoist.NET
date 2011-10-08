@@ -81,15 +81,15 @@ namespace Todoist.NET.Demo
                 if (String.IsNullOrWhiteSpace(emailBox.Text) || String.IsNullOrWhiteSpace(passwordBox.Text))
                     return;
 
-                _user.Login(emailBox.Text, passwordBox.Text);
+                _user.LogOn(emailBox.Text, passwordBox.Text);
             }
-            catch (LoginFailedException loginFailedException)
+            catch (LogOnFailedException loginFailedException)
             {
                 MessageBox.Show(loginFailedException.Message);
                 return;
             }
 
-            _projects = _user.GetProjects();
+            _projects = _user.GetProjects;
 
             listBox.Items.Clear();
             foreach (Project project in _projects)
@@ -114,8 +114,6 @@ namespace Todoist.NET.Demo
             if (listBox.Items.Count > 0)
                 listBox.SelectedIndex = 0;
 
-            Project __project = _projects.First();
-
             listBox.Select();
         }
 
@@ -133,7 +131,7 @@ namespace Todoist.NET.Demo
 
         private void RefreshButtonClick(object sender, EventArgs e)
         {
-            _projects = _user.GetProjects();
+            _projects = _user.GetProjects;
             listBox.Items.Clear();
             foreach (Project project in _projects)
             {
