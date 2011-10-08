@@ -49,6 +49,6 @@ namespace Todoist.NET.Demo
 
     public struct ComboBoxItem
     {
-        public Color Color { get; set; }
+        public System.Drawing.Color Color { get; set; }
     }
 }

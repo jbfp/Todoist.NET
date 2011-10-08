@@ -34,7 +34,7 @@ namespace Todoist.NET.Demo
 {
     public partial class Form1 : Form
     {
-        private List<Project> _projects;
+        private IEnumerable<Project> _projects;
         private User _user;
 
         public Form1()
@@ -49,19 +49,19 @@ namespace Todoist.NET.Demo
         private void InitializeColorComboBox()
         {
             colorComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
-            var greenItem = new ComboBoxItem {Color = new TodoistColor(TodoistColorEnum.Green).RGB};
-            var redItem = new ComboBoxItem {Color = new TodoistColor(TodoistColorEnum.Red).RGB};
-            var orangeItem = new ComboBoxItem {Color = new TodoistColor(TodoistColorEnum.Orange).RGB};
-            var yellowItem = new ComboBoxItem {Color = new TodoistColor(TodoistColorEnum.Yellow).RGB};
-            var blueItem = new ComboBoxItem {Color = new TodoistColor(TodoistColorEnum.Blue).RGB};
-            var mediumGreyItem = new ComboBoxItem {Color = new TodoistColor(TodoistColorEnum.MediumGrey).RGB};
-            var pinkItem = new ComboBoxItem {Color = new TodoistColor(TodoistColorEnum.Pink).RGB};
-            var lightGreyItem = new ComboBoxItem {Color = new TodoistColor(TodoistColorEnum.LightGrey).RGB};
-            var flameItem = new ComboBoxItem {Color = new TodoistColor(TodoistColorEnum.Flame).RGB};
-            var goldItem = new ComboBoxItem {Color = new TodoistColor(TodoistColorEnum.Gold).RGB};
-            var lightOpalItem = new ComboBoxItem {Color = new TodoistColor(TodoistColorEnum.LightOpal).RGB};
+            var greenItem = new ComboBoxItem {Color = new Color(TodoistColor.Green).Rgb};
+            var redItem = new ComboBoxItem {Color = new Color(TodoistColor.Red).Rgb};
+            var orangeItem = new ComboBoxItem {Color = new Color(TodoistColor.Orange).Rgb};
+            var yellowItem = new ComboBoxItem {Color = new Color(TodoistColor.Yellow).Rgb};
+            var blueItem = new ComboBoxItem {Color = new Color(TodoistColor.Blue).Rgb};
+            var mediumGreyItem = new ComboBoxItem {Color = new Color(TodoistColor.MediumGrey).Rgb};
+            var pinkItem = new ComboBoxItem {Color = new Color(TodoistColor.Pink).Rgb};
+            var lightGreyItem = new ComboBoxItem {Color = new Color(TodoistColor.LightGrey).Rgb};
+            var flameItem = new ComboBoxItem {Color = new Color(TodoistColor.Flame).Rgb};
+            var goldItem = new ComboBoxItem {Color = new Color(TodoistColor.Gold).Rgb};
+            var lightOpalItem = new ComboBoxItem {Color = new Color(TodoistColor.LightOpal).Rgb};
             var brilliantCeruleanItem = new ComboBoxItem
-                                            {Color = new TodoistColor(TodoistColorEnum.BrilliantCerulean).RGB};
+                                            {Color = new Color(TodoistColor.BrilliantCerulean).Rgb};
             colorComboBox.Items.AddRange(new object[]
                                              {
                                                  greenItem, redItem, orangeItem, yellowItem,
@@ -121,14 +121,14 @@ namespace Todoist.NET.Demo
 
         private void ListBoxSelectedIndexChanged(object sender, EventArgs e)
         {
-            idBox.Text = _projects[listBox.SelectedIndex].Id.ToString();
-            nameBox.Text = _projects[listBox.SelectedIndex].Name;
-            cacheCountBox.Text = _projects[listBox.SelectedIndex].CacheCount.ToString();
-            isCollapsedComboBox.SelectedIndex = _projects[listBox.SelectedIndex].IsSubProjectsCollapsed ? 1 : 0;
-            userIdBox.Text = _projects[listBox.SelectedIndex].OwnerId.ToString();
-            indentBox.Text = _projects[listBox.SelectedIndex].Indent.ToString();
-            orderBox.Text = _projects[listBox.SelectedIndex].ItemOrder.ToString();
-            colorComboBox.SelectedIndex = _projects[listBox.SelectedIndex].Color.TodoistColorEnum.GetHashCode();
+            idBox.Text = _projects.ElementAt(listBox.SelectedIndex).Id.ToString();
+            nameBox.Text = _projects.ElementAt(listBox.SelectedIndex).Name;
+            cacheCountBox.Text = _projects.ElementAt(listBox.SelectedIndex).CacheCount.ToString();
+            isCollapsedComboBox.SelectedIndex = _projects.ElementAt(listBox.SelectedIndex).IsSubprojectsCollapsed ? 1 : 0;
+            userIdBox.Text = _projects.ElementAt(listBox.SelectedIndex).OwnerId.ToString();
+            indentBox.Text = _projects.ElementAt(listBox.SelectedIndex).Indent.ToString();
+            orderBox.Text = _projects.ElementAt(listBox.SelectedIndex).ItemOrder.ToString();
+            colorComboBox.SelectedIndex = _projects.ElementAt(listBox.SelectedIndex).Color.TodoistColor.GetHashCode();
         }
 
         private void RefreshButtonClick(object sender, EventArgs e)
@@ -145,7 +145,7 @@ namespace Todoist.NET.Demo
         {
             _user.UpdateProject(Convert.ToInt32(idBox.Text),
                                 nameBox.Text,
-                                (TodoistColorEnum) colorComboBox.SelectedIndex,
+                                (TodoistColor) colorComboBox.SelectedIndex,
                                 Convert.ToInt32(indentBox.Value),
                                 Convert.ToInt32(orderBox.Value),
                                 Convert.ToBoolean(isCollapsedComboBox.SelectedIndex));
@@ -168,7 +168,7 @@ namespace Todoist.NET.Demo
 
         private void DeleteProjectButtonClick(object sender, EventArgs e)
         {
-            _user.DeleteProject(_projects[listBox.SelectedIndex].Id);
+            _user.DeleteProject(_projects.ElementAt(listBox.SelectedIndex).Id);
             RefreshButtonClick(sender, e);
         }
 

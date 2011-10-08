@@ -35,7 +35,7 @@ namespace Todoist.NET
     public class Project
     {
         private readonly int _cacheCount;
-        private readonly TodoistColor _color;
+        private readonly Color _color;
         private readonly int _id;
         private readonly int _indent;
         private readonly int _itemOrder;
@@ -61,40 +61,40 @@ namespace Todoist.NET
             switch ((string) o.SelectToken("color"))
             {
                 case "#bde876":
-                    _color = new TodoistColor(TodoistColorEnum.Green);
+                    _color = new Color(TodoistColor.Green);
                     break;
                 case "#ff8581":
-                    _color = new TodoistColor(TodoistColorEnum.Red);
+                    _color = new Color(TodoistColor.Red);
                     break;
                 case "#ffc472":
-                    _color = new TodoistColor(TodoistColorEnum.Orange);
+                    _color = new Color(TodoistColor.Orange);
                     break;
                 case "#faed75":
-                    _color = new TodoistColor(TodoistColorEnum.Yellow);
+                    _color = new Color(TodoistColor.Yellow);
                     break;
                 case "#a8c9e5":
-                    _color = new TodoistColor(TodoistColorEnum.Blue);
+                    _color = new Color(TodoistColor.Blue);
                     break;
                 case "#999999":
-                    _color = new TodoistColor(TodoistColorEnum.MediumGrey);
+                    _color = new Color(TodoistColor.MediumGrey);
                     break;
                 case "#e3a8e5":
-                    _color = new TodoistColor(TodoistColorEnum.Pink);
+                    _color = new Color(TodoistColor.Pink);
                     break;
                 case "#dddddd":
-                    _color = new TodoistColor(TodoistColorEnum.LightGrey);
+                    _color = new Color(TodoistColor.LightGrey);
                     break;
                 case "#fc603c":
-                    _color = new TodoistColor(TodoistColorEnum.Flame);
+                    _color = new Color(TodoistColor.Flame);
                     break;
                 case "#ffcc00":
-                    _color = new TodoistColor(TodoistColorEnum.Gold);
+                    _color = new Color(TodoistColor.Gold);
                     break;
                 case "#74e8d4":
-                    _color = new TodoistColor(TodoistColorEnum.LightOpal);
+                    _color = new Color(TodoistColor.LightOpal);
                     break;
                 case "#3cd6fc":
-                    _color = new TodoistColor(TodoistColorEnum.BrilliantCerulean);
+                    _color = new Color(TodoistColor.BrilliantCerulean);
                     break;
             }
 
@@ -144,7 +144,7 @@ namespace Todoist.NET
         /// <summary>
         /// 
         /// </summary>
-        public TodoistColor Color
+        public Color Color
         {
             get { return _color; }
         }
@@ -168,7 +168,7 @@ namespace Todoist.NET
         /// <summary>
         /// 
         /// </summary>
-        public bool IsSubProjectsCollapsed
+        public bool IsSubprojectsCollapsed
         {
             get { return _isSubProjectsCollapsed == 1; }
         }

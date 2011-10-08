@@ -34,7 +34,7 @@ namespace Todoist.NET
     /// <summary>
     /// 
     /// </summary>
-    public class Core
+    public static class Core
     {
         /// <summary>
         /// 

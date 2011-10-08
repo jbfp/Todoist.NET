@@ -39,19 +39,19 @@ namespace Todoist.NET.Demo
             _user = user;
             InitializeComponent();
             colorComboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
-            var greenItem = new ComboBoxItem {Color = new TodoistColor(TodoistColorEnum.Green).RGB};
-            var redItem = new ComboBoxItem {Color = new TodoistColor(TodoistColorEnum.Red).RGB};
-            var orangeItem = new ComboBoxItem {Color = new TodoistColor(TodoistColorEnum.Orange).RGB};
-            var yellowItem = new ComboBoxItem {Color = new TodoistColor(TodoistColorEnum.Yellow).RGB};
-            var blueItem = new ComboBoxItem {Color = new TodoistColor(TodoistColorEnum.Blue).RGB};
-            var mediumGreyItem = new ComboBoxItem {Color = new TodoistColor(TodoistColorEnum.MediumGrey).RGB};
-            var pinkItem = new ComboBoxItem {Color = new TodoistColor(TodoistColorEnum.Pink).RGB};
-            var lightGreyItem = new ComboBoxItem {Color = new TodoistColor(TodoistColorEnum.LightGrey).RGB};
-            var flameItem = new ComboBoxItem {Color = new TodoistColor(TodoistColorEnum.Flame).RGB};
-            var goldItem = new ComboBoxItem {Color = new TodoistColor(TodoistColorEnum.Gold).RGB};
-            var lightOpalItem = new ComboBoxItem {Color = new TodoistColor(TodoistColorEnum.LightOpal).RGB};
+            var greenItem = new ComboBoxItem {Color = new Color(TodoistColor.Green).Rgb};
+            var redItem = new ComboBoxItem {Color = new Color(TodoistColor.Red).Rgb};
+            var orangeItem = new ComboBoxItem {Color = new Color(TodoistColor.Orange).Rgb};
+            var yellowItem = new ComboBoxItem {Color = new Color(TodoistColor.Yellow).Rgb};
+            var blueItem = new ComboBoxItem {Color = new Color(TodoistColor.Blue).Rgb};
+            var mediumGreyItem = new ComboBoxItem {Color = new Color(TodoistColor.MediumGrey).Rgb};
+            var pinkItem = new ComboBoxItem {Color = new Color(TodoistColor.Pink).Rgb};
+            var lightGreyItem = new ComboBoxItem {Color = new Color(TodoistColor.LightGrey).Rgb};
+            var flameItem = new ComboBoxItem {Color = new Color(TodoistColor.Flame).Rgb};
+            var goldItem = new ComboBoxItem {Color = new Color(TodoistColor.Gold).Rgb};
+            var lightOpalItem = new ComboBoxItem {Color = new Color(TodoistColor.LightOpal).Rgb};
             var brilliantCeruleanItem = new ComboBoxItem
-                                            {Color = new TodoistColor(TodoistColorEnum.BrilliantCerulean).RGB};
+                                            {Color = new Color(TodoistColor.BrilliantCerulean).Rgb};
             colorComboBox1.Items.AddRange(new object[]
                                               {
                                                   greenItem, redItem, orangeItem, yellowItem,
@@ -71,7 +71,7 @@ namespace Todoist.NET.Demo
             _user.CreateProject(nameBox.Text,
                                 (int) indentBox.Value,
                                 (int) orderBox.Value,
-                                new TodoistColor((TodoistColorEnum) colorComboBox1.SelectedIndex));
+                                new Color((TodoistColor) colorComboBox1.SelectedIndex));
             Dispose();
         }
     }

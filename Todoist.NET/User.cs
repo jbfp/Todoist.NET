@@ -26,7 +26,7 @@
 #endregion
 
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using Newtonsoft.Json.Linq;
@@ -42,10 +42,12 @@ namespace Todoist.NET
         /// Infopage
         /// </summary>
         InfoPage,
+
         /// <summary>
         /// Blank page
         /// </summary>
         Blank,
+
         /// <summary>
         /// Project of choice (NYI)
         /// </summary>
@@ -61,6 +63,7 @@ namespace Todoist.NET
         /// 24-hour clock format, e.g. 13:00
         /// </summary>
         TwentyFourHourClock = 0,
+
         /// <summary>
         /// 12-hour clock format, e.g. 1 pm
         /// </summary>
@@ -76,6 +79,7 @@ namespace Todoist.NET
         /// DD-MM-YYY date format
         /// </summary>
         DdMmYyyy = 0,
+
         /// <summary>
         /// MM-DD-YYY date format
         /// </summary>
@@ -91,6 +95,7 @@ namespace Todoist.NET
         /// Oldest tasks/items
         /// </summary>
         OldestDatesFirst = 0,
+
         /// <summary>
         /// Newest tasks/items
         /// </summary>
@@ -106,14 +111,17 @@ namespace Todoist.NET
         /// Remind by email
         /// </summary>
         Email,
+
         /// <summary>
         /// Remind by mobile phone
         /// </summary>
         Mobile,
+
         /// <summary>
         /// Remind by Notifo account
         /// </summary>
         Notifo,
+
         /// <summary>
         /// No reminders
         /// </summary>
@@ -129,51 +137,11 @@ namespace Todoist.NET
         /// LoginFailed returned when login fail (usually due to wrong password/email)
         /// </summary>
         LoginFailed,
+
         /// <summary>
         /// LoginSucceeded when login succeeded
         /// </summary>
         LoginSucceeded
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public struct TimeZoneOffset
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        public string GmtString;
-        /// <summary>
-        /// 
-        /// </summary>
-        public int HourOffset;
-        /// <summary>
-        /// 
-        /// </summary>
-        public bool IsDaylightSavingsTime;
-        /// <summary>
-        /// 
-        /// </summary>
-        public int MinuteOffset;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="gmtString"></param>
-        /// <param name="hourOffset"></param>
-        /// <param name="minuteOffset"></param>
-        /// <param name="isDaylightSavingsTime"></param>
-        public TimeZoneOffset(string gmtString,
-                              int hourOffset,
-                              int minuteOffset,
-                              bool isDaylightSavingsTime)
-        {
-            GmtString = gmtString;
-            HourOffset = hourOffset;
-            MinuteOffset = minuteOffset;
-            IsDaylightSavingsTime = isDaylightSavingsTime;
-        }
     }
 
     /// <summary>
@@ -197,11 +165,11 @@ namespace Todoist.NET
         private SortOrder _sortOrder;
         private StartPage? _startPage;
         private TimeFormat _timeFormat;
-        private string[] _timeZone;
+        private string _timeZone;
         private TimeZoneOffset _timeZoneOffset;
 
         /// <summary>
-        /// 
+        /// User’s unique id
         /// </summary>
         public int Id
         {
@@ -209,7 +177,7 @@ namespace Todoist.NET
         }
 
         /// <summary>
-        /// 
+        /// User’s email
         /// </summary>
         public string Email
         {
@@ -217,7 +185,7 @@ namespace Todoist.NET
         }
 
         /// <summary>
-        /// 
+        /// User’s real name
         /// </summary>
         public string FullName
         {
@@ -225,7 +193,7 @@ namespace Todoist.NET
         }
 
         /// <summary>
-        /// 
+        /// User’s token, which is used for almost every query
         /// </summary>
         public string ApiToken
         {
@@ -233,7 +201,7 @@ namespace Todoist.NET
         }
 
         /// <summary>
-        /// 
+        /// User’s default view on Todoist.com
         /// </summary>
         public StartPage? StartPage
         {
@@ -241,15 +209,15 @@ namespace Todoist.NET
         }
 
         /// <summary>
-        /// 
+        /// User’s timezone in a string
         /// </summary>
-        public string[] TimeZone
+        public string TimeZone
         {
             get { return _timeZone; }
         }
 
         /// <summary>
-        /// 
+        /// User’s timezone offset
         /// </summary>
         public TimeZoneOffset TimeZoneOffset
         {
@@ -257,7 +225,7 @@ namespace Todoist.NET
         }
 
         /// <summary>
-        /// 
+        /// User's timeformat of choice -- 24-hour clock or 12-hour clock
         /// </summary>
         public TimeFormat TimeFormat
         {
@@ -265,7 +233,7 @@ namespace Todoist.NET
         }
 
         /// <summary>
-        /// 
+        /// User's dateformat of choice -- DD-MM-YYYY or MM-DD-YYYY
         /// </summary>
         public DateFormat DateFormat
         {
@@ -273,7 +241,7 @@ namespace Todoist.NET
         }
 
         /// <summary>
-        /// 
+        /// When viewing projects, are the the Oldest dates first or Oldest dates last
         /// </summary>
         public SortOrder SortOrder
         {
@@ -281,7 +249,7 @@ namespace Todoist.NET
         }
 
         /// <summary>
-        /// 
+        /// User's Notifo account
         /// </summary>
         public string NotifoAccount
         {
@@ -289,7 +257,7 @@ namespace Todoist.NET
         }
 
         /// <summary>
-        /// 
+        /// User's mobile number
         /// </summary>
         public string MobileNumber
         {
@@ -297,7 +265,7 @@ namespace Todoist.NET
         }
 
         /// <summary>
-        /// 
+        /// User's mobile host
         /// </summary>
         public string MobileHost
         {
@@ -305,7 +273,7 @@ namespace Todoist.NET
         }
 
         /// <summary>
-        /// 
+        /// When does the user's premium subscription expire?
         /// </summary>
         public string PremiumUntil
         {
@@ -313,7 +281,7 @@ namespace Todoist.NET
         }
 
         /// <summary>
-        /// 
+        /// What is the default reminder for the user (Premium feature)
         /// </summary>
         public DefaultReminder DefaultReminder
         {
@@ -321,7 +289,7 @@ namespace Todoist.NET
         }
 
         /// <summary>
-        /// 
+        /// A string of JSON data from Todoist.com
         /// </summary>
         public string JsonData
         {
@@ -333,7 +301,7 @@ namespace Todoist.NET
         #region User
 
         /// <summary>
-        /// 
+        /// Constructor. Logs the user out first (which is basically a property reset)
         /// </summary>
         public User()
         {
@@ -350,8 +318,11 @@ namespace Todoist.NET
         public LoginResult Login(string email, string password)
         {
             Logout();
-            if (String.IsNullOrWhiteSpace(email) || String.IsNullOrWhiteSpace(password))
-                throw new ArgumentNullException();
+            if (String.IsNullOrWhiteSpace(email))
+                throw new ArgumentNullException(email);
+
+            if (String.IsNullOrWhiteSpace(password))
+                throw new ArgumentNullException(password);
 
             Uri uri = Core.ConstructUri(
                 "login?",
@@ -361,7 +332,7 @@ namespace Todoist.NET
 
             if (tempJson == "\"LOGIN_ERROR\"")
             {
-                throw new LoginFailedException("Login failed.", new Exception(tempJson));
+                throw new LoginFailedException("Login failed.");
             }
 
             _jsonData = tempJson;
@@ -371,7 +342,7 @@ namespace Todoist.NET
         }
 
         /// <summary>
-        /// 
+        /// Resets all properties, because there is no real logging out from Todoist.com
         /// </summary>
         public void Logout()
         {
@@ -393,9 +364,6 @@ namespace Todoist.NET
             _jsonData = "";
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         private void AnalyseJson()
         {
             JObject o = JObject.Parse(JsonData);
@@ -424,9 +392,7 @@ namespace Todoist.NET
             _fullName = (string) o.SelectToken("full_name");
             _mobileNumber = (string) o.SelectToken("mobile_number");
             _mobileHost = (string) o.SelectToken("mobile_host");
-
-            JToken tz = o.SelectToken("timezone");
-            _timeZone = tz.ToString().Split('/');
+            _timeZone = (string) o.SelectToken("timezone");
 
             _id = (int) o.SelectToken("id");
 
@@ -473,16 +439,16 @@ namespace Todoist.NET
         /// <param name="email">The new user's email address.</param>
         /// <param name="fullName">The new user's full name.</param>
         /// <param name="password">The new user's password.</param>
-        /// <param name="timezone">The new user's timezone in "Europe/Copenhagen" format.</param>
+        /// <param name="timeZone">The new user's time zone in "Europe/Copenhagen" format.</param>
         /// <exception cref="RegistrationFailedException"><see cref="RegistrationFailedException"/></exception>
-        public void Register(string email, string fullName, string password, string timezone)
+        public static void Register(string email, string fullName, string password, string timeZone)
         {
             Uri uri = Core.ConstructUri("register?",
                                         String.Format("email={0}&" +
                                                       "full_name={1}&" +
                                                       "password={2}&" +
                                                       "timezone={3}", email, fullName,
-                                                      password, timezone),
+                                                      password, timeZone),
                                         true);
             string jsonResponse = Core.GetJsonData(uri);
 
@@ -490,39 +456,33 @@ namespace Todoist.NET
             {
                 case "\"ALREADY_REGISTRED\"":
                     throw new RegistrationFailedException(
-                        "The e-mail address provided has already been registered with Todoist with another account.",
-                        new Exception(jsonResponse));
+                        "The e-mail address provided has already been registered with Todoist with another account.");
                 case "\"TOO_SHORT_PASSWORD\"":
                     throw new RegistrationFailedException(
-                        "The password provided is too short. It must at least 5 characters long.",
-                        new Exception(jsonResponse));
+                        "The password provided is too short. It must at least 5 characters long.");
                 case "\"INVALID_EMAIL\"":
                     throw new RegistrationFailedException(
-                        "The e-mail address provided is invalid. Please use a valid e-mail address.",
-                        new Exception(jsonResponse));
+                        "The e-mail address provided is invalid. Please use a valid e-mail address.");
                 case "\"INVALID_TIMEZONE\"":
                     throw new RegistrationFailedException(
-                        "The timezone provided is invalid. Please use the format \"Europe/Copenhagen\"",
-                        new Exception(jsonResponse));
+                        "The time zone provided is invalid. Please use the format \"Europe/Copenhagen\"");
                 case "\"INVALID_FULL_NAME\"":
-                    throw new RegistrationFailedException("The name provided is invalid.",
-                                                          new Exception(jsonResponse));
+                    throw new RegistrationFailedException("The name provided is invalid.");
                 case "\"UNKNOWN_ERROR\"":
-                    throw new RegistrationFailedException("Unknown error. Please try again."
-                                                          , new Exception(jsonResponse));
+                    throw new RegistrationFailedException("Unknown error. Please try again.");
             }
         }
 
         /// <summary>
-        /// 
+        /// Update user
         /// </summary>
-        /// <param name="email"></param>
-        /// <param name="fullName"></param>
-        /// <param name="password"></param>
-        /// <param name="timeZone"></param>
-        /// <param name="dateFormat"></param>
-        /// <param name="timeFormat"></param>
-        /// <param name="startPage"></param>
+        /// <param name="email">New email</param>
+        /// <param name="fullName">New name</param>
+        /// <param name="password">New password</param>
+        /// <param name="timeZone">New timezone</param>
+        /// <param name="dateFormat">New dateformat</param>
+        /// <param name="timeFormat">New timeformat</param>
+        /// <param name="startPage">New startpage</param>
         public void UpdateUser(string email, string fullName, string password, string timeZone,
                                DateFormat? dateFormat,
                                TimeFormat? timeFormat, StartPage? startPage)
@@ -547,12 +507,10 @@ namespace Todoist.NET
             {
                 case "\"ERROR_PASSWORD_TOO_SHORT\"":
                     throw new UpdateUserException(
-                        "The password provided is too short. It must be at least 5 characters long.",
-                        new Exception(jsonResponse));
+                        "The password provided is too short. It must be at least 5 characters long.");
                 case "\"ERROR_EMAIL_FOUND\"":
                     throw new UpdateUserException(
-                        "The e-mail address provided has already been registered with Todoist with another account.",
-                        new Exception(jsonResponse));
+                        "The e-mail address provided has already been registered with Todoist with another account.");
             }
 
             _jsonData = jsonResponse;
@@ -566,7 +524,7 @@ namespace Todoist.NET
         /// <summary>
         /// Returns all of user's projects.
         /// </summary>
-        public List<Project> GetProjects()
+        public ReadOnlyCollection<Project> GetProjects()
         {
             CheckLoginStatus();
 
@@ -574,14 +532,14 @@ namespace Todoist.NET
             string jsonResponse = Core.GetJsonData(uri);
 
             JArray o = JArray.Parse(jsonResponse);
-            return o.Root.Select(p => new Project(p.ToString())).ToList();
+            return new ReadOnlyCollection<Project>(o.Root.Select(p => new Project(p.ToString())).ToList());
         }
 
         /// <summary>
         /// Return's data about a project. It does not have to be a project in the collection, 
         /// but it must still be a project the user owns. This will not add the project to the collection.
         /// </summary>
-        /// <param name="projectId"></param>
+        /// <param name="projectId">The id of the project specified</param>
         /// <returns></returns>
         public Project GetProject(int projectId)
         {
@@ -594,7 +552,7 @@ namespace Todoist.NET
 
             if (jsonResponse == "\"ERROR_PROJECT_NOT_FOUND\"")
             {
-                throw new ProjectException("Project not found.", new Exception(jsonResponse));
+                throw new ProjectException("Project not found.");
             }
 
             return AnalyseProjectJson(jsonResponse);
@@ -608,51 +566,59 @@ namespace Todoist.NET
         /// <summary>
         /// Create a new project. Call <see cref="GetProjects"/> on the project collection to refresh it.
         /// </summary>
-        /// <param name="projectName"></param>
-        /// <param name="color"></param>
-        /// <param name="indent"></param>
-        /// <param name="order"></param>
-        public void CreateProject(string projectName, int indent, int order, TodoistColor color)
+        /// <param name="projectName">Name</param>
+        /// <param name="color">Color</param>
+        /// <param name="indent">Indent level</param>
+        /// <param name="order">Position in project list</param>
+        public void CreateProject(string projectName, int indent, int order, Color color)
         {
             CheckLoginStatus();
 
+            // Validation
             if (indent < 1 || indent > 4)
-            {
                 throw new ArgumentOutOfRangeException(indent.ToString(),
-                                                      new Exception("The indent value must be between 1 and 4."));
-            }
+                                                      "The indent value must be between 1 and 4.");
+            if (String.IsNullOrWhiteSpace(projectName))
+                throw new ArgumentNullException("projectName");
+
+            // If color is null, set to default green
+            if (color == null)
+                color = new Color(TodoistColor.Green);
 
             Uri uri = Core.ConstructUri("addProject?",
                                         String.Format("token={0}&name={1}&indent={2}&order={3}&color={4}",
                                                       ApiToken, projectName, indent, order,
-                                                      color.TodoistColorEnum.GetHashCode()),
+                                                      color.TodoistColor.GetHashCode()),
                                         false);
             string jsonResponse = Core.GetJsonData(uri);
             if (jsonResponse == "\"ERROR_NAME_IS_EMPTY\"")
-            {
-                throw new ProjectException("The project name cannot be null.",
-                                           new Exception(jsonResponse));
-            }
+                throw new ProjectException("The project name cannot be null.");
         }
 
         /// <summary>
         /// Update an existing project.
         /// </summary>
-        /// <param name="projectId"></param>
-        /// <param name="name"></param>
-        /// <param name="color"></param>
-        /// <param name="indent"></param>
-        /// <param name="itemOrder"></param>
-        /// <param name="isCollapsed"></param>
-        public void UpdateProject(int projectId, string name, TodoistColorEnum? color, int? indent, int? itemOrder,
+        /// <param name="projectId">The id of the project that is to be updated</param>
+        /// <param name="name">New name</param>
+        /// <param name="color">New color</param>
+        /// <param name="indent">New indent level</param>
+        /// <param name="itemOrder">New way of sorting tasks</param>
+        /// <param name="isCollapsed">Toggle collapse</param>
+        public void UpdateProject(int projectId, string name, TodoistColor? color, int? indent, int? itemOrder,
                                   bool? isCollapsed)
         {
             CheckLoginStatus();
 
-            TodoistColorEnum? internalColor = color;
+            // Validation
+            TodoistColor? internalColor = color;
             if (color == null)
-                internalColor = GetProject(projectId).Color.TodoistColorEnum;
+                internalColor = GetProject(projectId).Color.TodoistColor;
 
+            if (String.IsNullOrWhiteSpace(name))
+            {
+                Project projectToBeChanged = GetProject(projectId);
+                name = projectToBeChanged.Name;
+            }
 
             Uri uri = Core.ConstructUri("updateProject?",
                                         String.Format(
@@ -668,17 +634,23 @@ namespace Todoist.NET
             string jsonResponse = Core.GetJsonData(uri);
 
             if (jsonResponse == "\"ERROR_PROJECT_NOT_FOUND\"")
-                throw new ProjectException("Name cannot be null.",
-                                           new Exception(jsonResponse));
+                throw new ProjectException("Name cannot be null.");
         }
 
         /// <summary>
         /// Updates how the projects are ordered.
         /// </summary>
-        /// <param name="order"></param>
+        /// <param name="order">A JSON list of the project's order, could be [3,2,9,7]</param>
+        /// <example>
+        /// user.UpdateProjectOrdering(new int[] { 0, 2, 3, 1 });
+        /// </example>
         public void UpdateProjectOrdering(int[] order)
         {
             CheckLoginStatus();
+
+            // Validation
+            if (order == null)
+                throw new ArgumentNullException("order");
 
             var sb = new StringBuilder();
             sb.Append("[");
@@ -696,13 +668,13 @@ namespace Todoist.NET
 
             string jsonResponse = Core.GetJsonData(uri);
             if (jsonResponse == "\"ERROR_PROJECT_NOT_FOUND\"")
-                throw new NullReferenceException();
+                throw new ProjectException("Project not found.");
         }
 
         /// <summary>
         /// Delete an existing project. Call <see cref="GetProjects"/> on the project collection to refresh it.
         /// </summary>
-        /// <param name="projectId"></param>
+        /// <param name="projectId">The id of the project to delete</param>
         public void DeleteProject(int projectId)
         {
             CheckLoginStatus();
@@ -721,9 +693,9 @@ namespace Todoist.NET
         /// <summary>
         /// Returns a project's uncompleted items (tasks).
         /// </summary>
-        /// <param name="projectId"></param>
+        /// <param name="projectId">The id of the project where the uncompleted items are from</param>
         /// <returns></returns>
-        public List<Item> GetUncompletedItemsByProjectId(int projectId)
+        public ReadOnlyCollection<Item> GetUncompletedItemsByProjectId(int projectId)
         {
             CheckLoginStatus();
 
@@ -736,11 +708,11 @@ namespace Todoist.NET
 
             if (jsonResponse == "\"ERROR_PROJECT_NOT_FOUND\"")
             {
-                throw new ProjectException("Project not found.", new Exception(jsonResponse));
+                throw new ProjectException("Project not found.");
             }
 
             JArray o = JArray.Parse(jsonResponse);
-            return new List<Item>(o.Root.Select(item => new Item(item.ToString())).ToList());
+            return new ReadOnlyCollection<Item>(o.Root.Select(item => new Item(item.ToString())).ToList());
         }
 
         /// <summary>
@@ -752,7 +724,7 @@ namespace Todoist.NET
         /// <param name="interval">Restrict time range, default is past 2 weeks.</param>
         /// <returns>Returns all user's completed items (tasks). Only available for Todoist Premium users.
         /// Will return null if there are no completed items, or if the user is not Premium.</returns>
-        public List<Item> GetAllCompletedItems(int? projectId, string label, string interval)
+        public ReadOnlyCollection<Item> GetAllCompletedItems(int? projectId, string label, string interval)
         {
             CheckLoginStatus();
 
@@ -763,19 +735,19 @@ namespace Todoist.NET
 
             if (jsonResponse == "\"ERROR_PROJECT_NOT_FOUND\"")
             {
-                throw new ProjectException("Project not found.", new Exception(jsonResponse));
+                throw new ProjectException("Project not found.");
             }
 
             JObject o = JObject.Parse(jsonResponse);
-            return new List<Item>(o.Root.First.Select(item => new Item(item.ToString())).ToList());
+            return new ReadOnlyCollection<Item>(o.Root.First.Select(item => new Item(item.ToString())).ToList());
         }
 
         /// <summary>
         /// Returns a project's completed items (tasks) - the tasks that are in history.
         /// </summary>
-        /// <param name="projectId"></param>
+        /// <param name="projectId">The id of the project where the completed items are from</param>
         /// <returns>Returns a project's completed items (tasks) - the tasks that are in history.</returns>
-        public List<Item> GetCompletedItemsByProjectId(int projectId)
+        public ReadOnlyCollection<Item> GetCompletedItemsByProjectId(int projectId)
         {
             CheckLoginStatus();
 
@@ -788,21 +760,25 @@ namespace Todoist.NET
 
             if (jsonResponse == "\"ERROR_PROJECT_NOT_FOUND\"")
             {
-                throw new ProjectException("Project not found.", new Exception(jsonResponse));
+                throw new ProjectException("Project not found.");
             }
 
             JArray o = JArray.Parse(jsonResponse);
-            return new List<Item>(o.Root.Select(item => new Item(item.ToString())).ToList());
+            return new ReadOnlyCollection<Item>(o.Root.Select(item => new Item(item.ToString())).ToList());
         }
 
         /// <summary>
         /// Returns a list of items by id.
         /// </summary>
-        /// <param name="itemIds"></param>
+        /// <param name="itemIds">int array of specific item ids</param>
         /// <returns>Returns a list of items by id.</returns>
-        public List<Item> GetItemsById(int[] itemIds)
+        public ReadOnlyCollection<Item> GetItemsById(int[] itemIds)
         {
             CheckLoginStatus();
+
+            // Validation
+            if (itemIds == null)
+                throw new ArgumentNullException("itemIds");
 
             var sb = new StringBuilder();
             sb.Append("[");
@@ -820,7 +796,7 @@ namespace Todoist.NET
             string jsonResponse = Core.GetJsonData(uri);
 
             JArray o = JArray.Parse(jsonResponse);
-            return new List<Item>(o.Root.Select(item => new Item(item.ToString())).ToList());
+            return new ReadOnlyCollection<Item>(o.Root.Select(item => new Item(item.ToString())).ToList());
         }
 
         /// <summary>
@@ -837,10 +813,10 @@ namespace Todoist.NET
 
             if (priority < 1 || priority > 4)
                 throw new ArgumentOutOfRangeException(priority.ToString(),
-                                                      new Exception("Priority must be between 1 and 4."));
+                                                      "Priority must be between 1 and 4.");
             if (indent < 1 || indent > 4)
                 throw new ArgumentOutOfRangeException(indent.ToString(),
-                                                      new Exception("Indent must be between 1 and 4."));
+                                                      "Indent must be between 1 and 4.");
 
             Uri uri = Core.ConstructUri("addItem?",
                                         String.Format(
@@ -850,9 +826,9 @@ namespace Todoist.NET
             string jsonResponse = Core.GetJsonData(uri);
 
             if (jsonResponse == "\"ERROR_PROJECT_NOT_FOUND\"")
-                throw new ProjectException("Project not found.", new Exception(jsonResponse));
+                throw new ProjectException("Project not found.");
             if (jsonResponse == "\"ERROR_WRONG_DATE_SYNTAX\"")
-                throw new ItemException("Wrong date syntax.", new Exception(jsonResponse));
+                throw new ItemException("Wrong date syntax.");
         }
 
         /// <summary>
@@ -875,7 +851,7 @@ namespace Todoist.NET
             string jsonResponse = Core.GetJsonData(uri);
 
             if (jsonResponse == "\"ERROR_ITEM_NOT_FOUND\"")
-                throw new ItemException("Item not found.", new Exception(jsonResponse));
+                throw new ItemException("Item not found.");
         }
 
         /// <summary>
@@ -886,6 +862,10 @@ namespace Todoist.NET
         public void UpdateItemOrdering(int projectId, int[] itemIds)
         {
             CheckLoginStatus();
+
+            // Validation
+            if (itemIds == null)
+                throw new ArgumentNullException("itemIds");
 
             var sb = new StringBuilder();
             sb.Append("[");
@@ -898,12 +878,12 @@ namespace Todoist.NET
 
             sb.Append("]");
             Uri uri = Core.ConstructUri("getItemsById?",
-                                        String.Format("token={0}&ids={1}", ApiToken, sb),
+                                        String.Format("token={0}&project_id={1}&ids={2}", ApiToken, projectId, sb),
                                         false);
             string jsonResponse = Core.GetJsonData(uri);
 
             if (jsonResponse == "\"ERROR_PROJECT_NOT_FOUND\"")
-                throw new ProjectException("Project not found.", new Exception(jsonResponse));
+                throw new ProjectException("Project not found.");
         }
 
         /// <summary>
@@ -912,6 +892,7 @@ namespace Todoist.NET
         public void MoveItem(int projectId)
         {
             CheckLoginStatus();
+            throw new NotImplementedException("Don't worry, this is next on the list.");
         }
 
         /// <summary>
@@ -921,6 +902,12 @@ namespace Todoist.NET
         public void UpdateRecurringDate(int[] itemIds)
         {
             CheckLoginStatus();
+
+            // Validation
+            if (itemIds == null)
+            {
+                throw new ArgumentNullException("itemIds");
+            }
 
             var sb = new StringBuilder();
             sb.Append("[");
@@ -943,6 +930,12 @@ namespace Todoist.NET
         public void DeleteItems(int[] itemIds)
         {
             CheckLoginStatus();
+
+            // Validation
+            if (itemIds == null)
+            {
+                throw new ArgumentNullException("itemIds");
+            }
 
             var sb = new StringBuilder();
             sb.Append("[");
@@ -967,6 +960,12 @@ namespace Todoist.NET
         {
             CheckLoginStatus();
 
+            // Validation
+            if (itemIds == null)
+            {
+                throw new ArgumentNullException("itemIds");
+            }
+
             var sb = new StringBuilder();
             sb.Append("[");
             foreach (int itemId in itemIds)
@@ -984,12 +983,16 @@ namespace Todoist.NET
         }
 
         /// <summary>
-        /// Uncomplete items and move them to the active projects.
+        /// "Un-complete" items and move them to the active projects.
         /// </summary>
-        /// <param name="itemIds">The item ids, which are to be uncompleted.</param>
+        /// <param name="itemIds">The item ids, which are to be "un-completed".</param>
         public void UncompleteItems(int[] itemIds)
         {
             CheckLoginStatus();
+
+            // Validation
+            if (itemIds == null)
+                throw new ArgumentNullException("itemIds");
 
             var sb = new StringBuilder();
             sb.Append("[");
@@ -1044,7 +1047,7 @@ namespace Todoist.NET
         /// </summary>
         /// <param name="itemId">The item id from where the notes are to be found.</param>
         /// <returns>Returns all notes of an item.</returns>
-        public List<Note> GetNotesByItemId(int itemId)
+        public ReadOnlyCollection<Note> GetNotesByItemId(int itemId)
         {
             CheckLoginStatus();
 
@@ -1052,7 +1055,7 @@ namespace Todoist.NET
             string jsonResponse = Core.GetJsonData(uri);
 
             JArray o = JArray.Parse(jsonResponse);
-            return new List<Note>(o.Root.Select(note => new Note(note.ToString())).ToList());
+            return new ReadOnlyCollection<Note>(o.Root.Select(note => new Note(note.ToString())).ToList());
         }
 
         #endregion
@@ -1060,7 +1063,7 @@ namespace Todoist.NET
         internal void CheckLoginStatus()
         {
             if (String.IsNullOrWhiteSpace(ApiToken))
-                throw new NullReferenceException("You must login to do that.");
+                throw new ArgumentNullException(ApiToken, "You must login to do that.");
         }
     }
 }

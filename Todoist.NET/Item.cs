@@ -95,7 +95,7 @@ namespace Todoist.NET
         /// <summary>
         /// 
         /// </summary>
-        public bool IsSubTasksCollapsed
+        public bool IsSubtasksCollapsed
         {
             get { return _isSubTasksCollapsed; }
         }
