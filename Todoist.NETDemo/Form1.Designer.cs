@@ -64,6 +64,8 @@ namespace Todoist.NET.Demo
             this.orderBox = new System.Windows.Forms.NumericUpDown();
             this.indentBox = new System.Windows.Forms.NumericUpDown();
             this.colorComboBox = new Todoist.NET.Demo.ColorComboBox();
+            this.isGroupComboBox = new System.Windows.Forms.ComboBox();
+            this.isGroupLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.orderBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.indentBox)).BeginInit();
             this.SuspendLayout();
@@ -338,11 +340,32 @@ namespace Todoist.NET.Demo
             this.colorComboBox.Size = new System.Drawing.Size(100, 21);
             this.colorComboBox.TabIndex = 43;
             // 
+            // isGroupComboBox
+            // 
+            this.isGroupComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.isGroupComboBox.Enabled = false;
+            this.isGroupComboBox.FormattingEnabled = true;
+            this.isGroupComboBox.Location = new System.Drawing.Point(89, 204);
+            this.isGroupComboBox.Name = "isGroupComboBox";
+            this.isGroupComboBox.Size = new System.Drawing.Size(100, 21);
+            this.isGroupComboBox.TabIndex = 44;
+            // 
+            // isGroupLabel
+            // 
+            this.isGroupLabel.AutoSize = true;
+            this.isGroupLabel.Location = new System.Drawing.Point(12, 209);
+            this.isGroupLabel.Name = "isGroupLabel";
+            this.isGroupLabel.Size = new System.Drawing.Size(44, 13);
+            this.isGroupLabel.TabIndex = 45;
+            this.isGroupLabel.Text = "IsGroup";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(484, 234);
+            this.Controls.Add(this.isGroupLabel);
+            this.Controls.Add(this.isGroupComboBox);
             this.Controls.Add(this.colorComboBox);
             this.Controls.Add(this.indentBox);
             this.Controls.Add(this.orderBox);
@@ -408,6 +431,8 @@ namespace Todoist.NET.Demo
         private System.Windows.Forms.NumericUpDown orderBox;
         private System.Windows.Forms.NumericUpDown indentBox;
         private ColorComboBox colorComboBox;
+        private System.Windows.Forms.ComboBox isGroupComboBox;
+        private System.Windows.Forms.Label isGroupLabel;
 
     }
 }

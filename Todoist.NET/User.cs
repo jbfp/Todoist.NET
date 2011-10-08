@@ -913,29 +913,29 @@ namespace Todoist.NET
         /// <summary>
         /// LogOn user into Todoist to get a token. Required to do any communication.
         /// </summary>
-        /// <param name="email">
+        /// <param name="logOnEmail">
         /// User's email address.
         /// </param>
         /// <param name="password">
         /// User's password.
         /// </param>
         /// <exception cref="ArgumentNullException">
-        /// If <paramref name="email"/> or <paramref name="password"/> is null.
+        /// If <paramref name="logOnEmail"/> or <paramref name="password"/> is null.
         /// </exception>
         /// <exception cref="LogOnFailedException">
-        /// If <paramref name="email"/> or <paramref name="password"/> is incorrect.
+        /// If <paramref name="logOnEmail"/> or <paramref name="password"/> is incorrect.
         /// </exception>
         /// <exception cref="WebException">
         /// </exception>
         /// <returns>
         /// The log on result.
         /// </returns>
-        public LogOnResult LogOn(string email, string password)
+        public LogOnResult LogOn(string logOnEmail, string password)
         {
             this.LogOff();
-            if (string.IsNullOrWhiteSpace(email))
+            if (string.IsNullOrWhiteSpace(logOnEmail))
             {
-                throw new ArgumentNullException(email);
+                throw new ArgumentNullException(logOnEmail);
             }
 
             if (string.IsNullOrWhiteSpace(password))
@@ -943,7 +943,7 @@ namespace Todoist.NET
                 throw new ArgumentNullException(password);
             }
 
-            Uri uri = Core.ConstructUri("login?", string.Format("email={0}&password={1}", email, password), true);
+            Uri uri = Core.ConstructUri("login?", string.Format("email={0}&password={1}", logOnEmail, password), true);
             string tempJson = Core.GetJsonData(uri);
 
             if (tempJson == "\"LOGIN_ERROR\"")
@@ -1126,25 +1126,28 @@ namespace Todoist.NET
         /// Update an existing project.
         /// </summary>
         /// <param name="projectId">
-        /// The id of the project that is to be updated
+        /// The id of the project that is to be updated.
         /// </param>
         /// <param name="name">
-        /// New name
+        /// New name.
         /// </param>
         /// <param name="color">
-        /// New color
+        /// New color.
         /// </param>
         /// <param name="indent">
-        /// New indent level
+        /// New indent level.
         /// </param>
         /// <param name="itemOrder">
-        /// New way of sorting tasks
+        /// New way of sorting tasks.
         /// </param>
         /// <param name="isCollapsed">
-        /// Toggle collapse
+        /// Toggle collapse.
+        /// </param>
+        /// <param name="isGroup">
+        /// Toggle group.
         /// </param>
         public void UpdateProject(
-            int projectId, string name, TodoistColor? color, int? indent, int? itemOrder, bool? isCollapsed)
+            int projectId, string name, TodoistColor? color, int? indent, int? itemOrder, bool? isCollapsed, bool? isGroup)
         {
             this.CheckLoginStatus();
 
@@ -1161,13 +1164,18 @@ namespace Todoist.NET
                 name = projectToBeChanged.Name;
             }
 
+            if (isGroup != null && isGroup == true)
+            {
+                name = string.Format("*{0}", name);
+            }
+
             Uri uri = Core.ConstructUri(
                 "updateProject?",
                 string.Format(
                     "&project_id={0}&token={1}&name={2}&color={3}&indent={4}&order={5}&collapsed={6}",
                     projectId,
                     this.ApiToken,
-                    name.Replace("*", string.Empty),
+                    name,
                     internalColor.GetHashCode(),
                     indent,
                     itemOrder,

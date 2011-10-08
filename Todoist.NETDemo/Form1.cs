@@ -29,6 +29,8 @@ namespace Todoist.NET.Demo
             this.InitializeColorComboBox();
             isCollapsedComboBox.Items.Add("False");
             isCollapsedComboBox.Items.Add("True");
+            isGroupComboBox.Items.Add("False");
+            isGroupComboBox.Items.Add("True");
             listBox.SelectionMode = SelectionMode.One;
         }
 
@@ -82,13 +84,7 @@ namespace Todoist.NET.Demo
                 return;
             }
 
-            this.projects = this.user.GetProjects;
-            
-            listBox.Items.Clear();
-            foreach (Project project in this.projects)
-            {
-                listBox.Items.Add(string.Concat(Enumerable.Repeat(" ", project.Indent - 1)) + project.Name);
-            }
+            this.GetProjects();
 
             refreshButton.Enabled = true;
             createProjectButton.Enabled = true;
@@ -97,6 +93,7 @@ namespace Todoist.NET.Demo
             idBox.Enabled = true;
             cacheCountBox.Enabled = true;
             isCollapsedComboBox.Enabled = true;
+            isGroupComboBox.Enabled = true;
             colorComboBox.Enabled = true;
             nameBox.Enabled = true;
             userIdBox.Enabled = true;
@@ -112,12 +109,23 @@ namespace Todoist.NET.Demo
             listBox.Select();
         }
 
+        private void GetProjects()
+        {
+            this.projects = this.user.GetProjects;
+            this.listBox.Items.Clear();
+            foreach (var project in this.projects)
+            {
+                this.listBox.Items.Add(string.Concat(Enumerable.Repeat("   ", project.Indent - 1)) + project.Name);
+            }
+        }
+
         private void ListBoxSelectedIndexChanged(object sender, EventArgs e)
         {
             idBox.Text = this.projects.ElementAt(listBox.SelectedIndex).Id.ToString();
             nameBox.Text = this.projects.ElementAt(listBox.SelectedIndex).Name;
             cacheCountBox.Text = this.projects.ElementAt(listBox.SelectedIndex).CacheCount.ToString();
             isCollapsedComboBox.SelectedIndex = this.projects.ElementAt(listBox.SelectedIndex).IsSubprojectsCollapsed ? 1 : 0;
+            isGroupComboBox.SelectedIndex = this.projects.ElementAt(listBox.SelectedIndex).IsGroup ? 1 : 0;
             userIdBox.Text = this.projects.ElementAt(listBox.SelectedIndex).OwnerId.ToString();
             indentBox.Text = this.projects.ElementAt(listBox.SelectedIndex).Indent.ToString();
             orderBox.Text = this.projects.ElementAt(listBox.SelectedIndex).ItemOrder.ToString();
@@ -126,12 +134,7 @@ namespace Todoist.NET.Demo
 
         private void RefreshButtonClick(object sender, EventArgs e)
         {
-            this.projects = this.user.GetProjects;
-            listBox.Items.Clear();
-            foreach (Project project in this.projects)
-            {
-                listBox.Items.Add(project.Name);
-            }
+            this.GetProjects();
         }
 
         private void SaveButtonClick(object sender, EventArgs e)
@@ -142,7 +145,8 @@ namespace Todoist.NET.Demo
                 (TodoistColor)colorComboBox.SelectedIndex,
                 Convert.ToInt32(indentBox.Value),
                 Convert.ToInt32(orderBox.Value),
-                                Convert.ToBoolean(isCollapsedComboBox.SelectedIndex));
+                Convert.ToBoolean(isCollapsedComboBox.SelectedIndex),
+                Convert.ToBoolean(isGroupComboBox.SelectedIndex));
             this.RefreshButtonClick(sender, e);
         }
 

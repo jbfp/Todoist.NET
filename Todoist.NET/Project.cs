@@ -81,12 +81,21 @@ namespace Todoist.NET
 
             this.ownerId = (int)o.SelectToken("user_id");
             this.name = (string)o.SelectToken("name");
+            if (this.name[0] == '*')
+            {
+                this.name = this.name.Remove(0, 1);
+                this.isGroup = true;
+            }
+            else
+            {
+                this.isGroup = false;
+            }
+
             this.indent = (int)o.SelectToken("indent");
             this.cacheCount = (int)o.SelectToken("cache_count");
             this.id = (int)o.SelectToken("id");
             this.itemOrder = (int)o.SelectToken("item_order");
             this.isSubProjectsCollapsed = (int)o.SelectToken("collapsed");
-            this.isGroup = this.name[0] == '*';
 
             switch ((string)o.SelectToken("color"))
             {

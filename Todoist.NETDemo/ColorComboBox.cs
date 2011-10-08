@@ -12,6 +12,14 @@ namespace Todoist.NET.Demo
     using System.Drawing;
     using System.Windows.Forms;
 
+    public struct ComboBoxItem
+    {
+        /// <summary>
+        /// Gets or sets Color.
+        /// </summary>
+        public Color Color { get; set; }
+    }
+
     internal class ColorComboBox : ComboBox
     {
         /// <summary>
@@ -30,13 +38,5 @@ namespace Todoist.NET.Demo
             var boundRect = new Rectangle(e.Bounds.Left, e.Bounds.Top, e.Bounds.Width, e.Bounds.Height);
             e.Graphics.FillRectangle(new SolidBrush(current.Color), boundRect);
         }
-    }
-
-    public struct ComboBoxItem
-    {
-        /// <summary>
-        /// Gets or sets Color.
-        /// </summary>
-        public Color Color { get; set; }
     }
 }
