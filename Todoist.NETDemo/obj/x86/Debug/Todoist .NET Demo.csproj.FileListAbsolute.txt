@@ -24,3 +24,4 @@ C:\Users\Jakob\Todoist.NET\Todoist.NETDemo\bin\Debug\Todoist.NET.pdb
 C:\Users\Jakob\Todoist.NET\Todoist.NETDemo\obj\x86\Debug\Todoist.NET.Demo.Properties.Resources.resources
 C:\Users\Jakob\Todoist.NET\Todoist.NETDemo\obj\x86\Debug\Todoist.NET Demo.exe
 C:\Users\Jakob\Todoist.NET\Todoist.NETDemo\obj\x86\Debug\Todoist.NET Demo.pdb
+C:\Users\Jakob\Todoist.NET\Todoist.NETDemo\bin\Debug\Todoist.NET.xml

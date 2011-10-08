@@ -34,41 +34,101 @@ using System.Text.RegularExpressions;
 
 namespace Todoist.NET
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public enum TodoistColorEnum
     {
+        /// <summary>
+        /// 
+        /// </summary>
         Green = 0,
+        /// <summary>
+        /// 
+        /// </summary>
         Red = 1,
+        /// <summary>
+        /// 
+        /// </summary>
         Orange = 2,
+        /// <summary>
+        /// 
+        /// </summary>
         Yellow = 3,
+        /// <summary>
+        /// 
+        /// </summary>
         Blue = 4,
+        /// <summary>
+        /// 
+        /// </summary>
         MediumGrey = 5,
+        /// <summary>
+        /// 
+        /// </summary>
         Pink = 6,
+        /// <summary>
+        /// 
+        /// </summary>
         LightGrey = 7,
+        /// <summary>
+        /// 
+        /// </summary>
         Flame = 8,
+        /// <summary>
+        /// 
+        /// </summary>
         Gold = 9,
+        /// <summary>
+        /// 
+        /// </summary>
         LightOpal = 10,
+        /// <summary>
+        /// 
+        /// </summary>
         BrilliantCerulean = 11
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public class TodoistColor
     {
         private readonly string _htmlColor;
         private readonly Color _rgb;
 
+        private readonly TodoistColorEnum _todoistColorEnum;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="todoistColor"></param>
         public TodoistColor(TodoistColorEnum todoistColor)
         {
-            TodoistColorEnum = todoistColor;
+            _todoistColorEnum = todoistColor;
             _htmlColor = ConvertTodoistColorToString(TodoistColorEnum);
             _rgb = ConvertStringToColor(_htmlColor);
         }
 
-        public TodoistColorEnum TodoistColorEnum { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public TodoistColorEnum TodoistColorEnum
+        {
+            get { return _todoistColorEnum; }
+        }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string HtmlColor
         {
             get { return _htmlColor; }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public Color RGB
         {
             get { return _rgb; }

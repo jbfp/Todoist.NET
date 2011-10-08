@@ -25,97 +25,160 @@
 
 #endregion
 
-using System;
-using System.Linq;
 using Newtonsoft.Json.Linq;
 
 namespace Todoist.NET
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class Project
     {
-        private int _isSubProjectsCollapsed;
-        private string _name;
+        private readonly int _cacheCount;
+        private readonly TodoistColor _color;
+        private readonly int _id;
+        private readonly int _indent;
+        private readonly int _itemOrder;
+        private readonly string _jsonData;
+        private readonly string _name;
+        private readonly int _ownerId;
+        private readonly bool _isGroup;
+        private readonly int _isSubProjectsCollapsed;
 
         internal Project(string jsonData)
         {
             JObject o = JObject.Parse(jsonData);
 
-            OwnerId = (int) o.SelectToken("user_id");
-            Name = (string) o.SelectToken("name");
-            Indent = (int) o.SelectToken("indent");
-            CacheCount = (int) o.SelectToken("cache_count");
-            Id = (int) o.SelectToken("id");
-            ItemOrder = (int) o.SelectToken("item_order");
-            IsSubProjectsCollapsed = (int) o.SelectToken("collapsed") == 1;
+            _ownerId = (int) o.SelectToken("user_id");
+            _name = (string) o.SelectToken("name");
+            _indent = (int) o.SelectToken("indent");
+            _cacheCount = (int) o.SelectToken("cache_count");
+            _id = (int) o.SelectToken("id");
+            _itemOrder = (int) o.SelectToken("item_order");
+            _isSubProjectsCollapsed = (int) o.SelectToken("collapsed");
+            _isGroup = _name[0] == '*';
 
             switch ((string) o.SelectToken("color"))
             {
                 case "#bde876":
-                    Color = new TodoistColor(TodoistColorEnum.Green);
+                    _color = new TodoistColor(TodoistColorEnum.Green);
                     break;
                 case "#ff8581":
-                    Color = new TodoistColor(TodoistColorEnum.Red);
+                    _color = new TodoistColor(TodoistColorEnum.Red);
                     break;
                 case "#ffc472":
-                    Color = new TodoistColor(TodoistColorEnum.Orange);
+                    _color = new TodoistColor(TodoistColorEnum.Orange);
                     break;
                 case "#faed75":
-                    Color = new TodoistColor(TodoistColorEnum.Yellow);
+                    _color = new TodoistColor(TodoistColorEnum.Yellow);
                     break;
                 case "#a8c9e5":
-                    Color = new TodoistColor(TodoistColorEnum.Blue);
+                    _color = new TodoistColor(TodoistColorEnum.Blue);
                     break;
                 case "#999999":
-                    Color = new TodoistColor(TodoistColorEnum.MediumGrey);
+                    _color = new TodoistColor(TodoistColorEnum.MediumGrey);
                     break;
                 case "#e3a8e5":
-                    Color = new TodoistColor(TodoistColorEnum.Pink);
+                    _color = new TodoistColor(TodoistColorEnum.Pink);
                     break;
                 case "#dddddd":
-                    Color = new TodoistColor(TodoistColorEnum.LightGrey);
+                    _color = new TodoistColor(TodoistColorEnum.LightGrey);
                     break;
                 case "#fc603c":
-                    Color = new TodoistColor(TodoistColorEnum.Flame);
+                    _color = new TodoistColor(TodoistColorEnum.Flame);
                     break;
                 case "#ffcc00":
-                    Color = new TodoistColor(TodoistColorEnum.Gold);
+                    _color = new TodoistColor(TodoistColorEnum.Gold);
                     break;
                 case "#74e8d4":
-                    Color = new TodoistColor(TodoistColorEnum.LightOpal);
+                    _color = new TodoistColor(TodoistColorEnum.LightOpal);
                     break;
                 case "#3cd6fc":
-                    Color = new TodoistColor(TodoistColorEnum.BrilliantCerulean);
+                    _color = new TodoistColor(TodoistColorEnum.BrilliantCerulean);
                     break;
             }
 
-            JsonData = jsonData;
+            _jsonData = jsonData;
         }
 
-        public int Id { get; set; }
-        public int OwnerId { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public int Id
+        {
+            get { return _id; }
+        }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public int OwnerId
+        {
+            get { return _ownerId; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string Name
         {
             get { return _name; }
-            set
-            {
-                _name = value.Replace("*", String.Empty);
-                IsGroup = value.ElementAt(0) == '*';
-            }
         }
 
-        public bool IsGroup { get; private set; }
-        public int CacheCount { get; private set; }
-        public TodoistColor Color { get; set; }
-        public int Indent { get; private set; }
-        public int ItemOrder { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool IsGroup
+        {
+            get { return _isGroup; }
+        }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public int CacheCount
+        {
+            get { return _cacheCount; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public TodoistColor Color
+        {
+            get { return _color; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int Indent
+        {
+            get { return _indent; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int ItemOrder
+        {
+            get { return _itemOrder; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public bool IsSubProjectsCollapsed
         {
             get { return _isSubProjectsCollapsed == 1; }
-            set { _isSubProjectsCollapsed = value ? 1 : 0; }
         }
 
-        public string JsonData { get; private set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string JsonData
+        {
+            get { return _jsonData; }
+        }
     }
 }

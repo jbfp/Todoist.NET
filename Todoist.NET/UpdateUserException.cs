@@ -30,22 +30,42 @@ using System.Runtime.Serialization;
 
 namespace Todoist.NET
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [Serializable]
     public class UpdateUserException : SystemException
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public UpdateUserException()
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="message"></param>
         public UpdateUserException(string message) : base(message)
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="innerException"></param>
         public UpdateUserException(string message, Exception innerException)
             : base(message, innerException)
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="context"></param>
         protected UpdateUserException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {

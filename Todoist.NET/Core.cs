@@ -31,6 +31,9 @@ using System.Net;
 
 namespace Todoist.NET
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class Core
     {
         /// <summary>
@@ -52,7 +55,7 @@ namespace Todoist.NET
         /// Constructs a URI 
         /// </summary>
         /// <param name="query">The URL parameter, e.g. login? or getTimezones?</param>
-        /// <param name="parameters">The parameters for the <paramref name="query"/>, e.g. email="x"&"password="y". 
+        /// <param name="parameters">The parameters for the <paramref name="query"/>, e.g. email="x" and "password="y". 
         ///                          Must always be separated with an ampersand</param>
         /// <param name="isSecure">Specifies if the connection to the server must be secure, i.e. https or http. Defaults to http.</param>
         /// <returns>Returns a <see cref="Uri"/>.</returns>

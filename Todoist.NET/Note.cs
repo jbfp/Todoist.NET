@@ -29,22 +29,57 @@ using Newtonsoft.Json.Linq;
 
 namespace Todoist.NET
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class Note
     {
-        public Note(string jsonData)
+        private readonly string _content;
+        private readonly int _id;
+        private readonly int _itemId;
+        private readonly string _jsonData;
+
+        internal Note(string jsonData)
         {
             JArray o = JArray.Parse(jsonData);
 
-            Id = (int) o.SelectToken("id");
-            ItemId = (int) o.SelectToken("item_id");
-            Content = (string) o.SelectToken("content");
+            _id = (int) o.SelectToken("id");
+            _itemId = (int) o.SelectToken("item_id");
+            _content = (string) o.SelectToken("content");
 
-            JsonData = jsonData;
+            _jsonData = jsonData;
         }
 
-        public int Id { get; private set; }
-        public int ItemId { get; private set; }
-        public string Content { get; private set; }
-        public string JsonData { get; private set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public int Id
+        {
+            get { return _id; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int ItemId
+        {
+            get { return _itemId; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Content
+        {
+            get { return _content; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string JsonData
+        {
+            get { return _jsonData; }
+        }
     }
 }

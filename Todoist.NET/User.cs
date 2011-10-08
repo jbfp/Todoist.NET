@@ -34,21 +34,36 @@ using Newtonsoft.Json.Linq;
 namespace Todoist.NET
 {
     /// <summary>
-    /// 
+    /// User's startpage on Todoist.com
     /// </summary>
     public enum StartPage
     {
+        /// <summary>
+        /// Infopage
+        /// </summary>
         InfoPage,
+        /// <summary>
+        /// Blank page
+        /// </summary>
         Blank,
+        /// <summary>
+        /// Project of choice (NYI)
+        /// </summary>
         ProjectX
     }
 
     /// <summary>
-    /// 
+    /// User's time format, either 12-hour clock or 24-hour clock
     /// </summary>
     public enum TimeFormat
     {
+        /// <summary>
+        /// 24-hour clock format, e.g. 13:00
+        /// </summary>
         TwentyFourHourClock = 0,
+        /// <summary>
+        /// 12-hour clock format, e.g. 1 pm
+        /// </summary>
         TwelveHourClock = 1
     }
 
@@ -57,27 +72,51 @@ namespace Todoist.NET
     /// </summary>
     public enum DateFormat
     {
+        /// <summary>
+        /// DD-MM-YYY date format
+        /// </summary>
         DdMmYyyy = 0,
+        /// <summary>
+        /// MM-DD-YYY date format
+        /// </summary>
         MmDdYyyy = 1
     }
 
     /// <summary>
-    /// 
+    /// When tasks are sorted by date, which tasks come first
     /// </summary>
     public enum SortOrder
     {
+        /// <summary>
+        /// Oldest tasks/items
+        /// </summary>
         OldestDatesFirst = 0,
+        /// <summary>
+        /// Newest tasks/items
+        /// </summary>
         NewestDatesFirst = 1
     }
 
     /// <summary>
-    /// 
+    /// The device of choice to be reminded to, of tasks due
     /// </summary>
     public enum DefaultReminder
     {
+        /// <summary>
+        /// Remind by email
+        /// </summary>
         Email,
+        /// <summary>
+        /// Remind by mobile phone
+        /// </summary>
         Mobile,
+        /// <summary>
+        /// Remind by Notifo account
+        /// </summary>
         Notifo,
+        /// <summary>
+        /// No reminders
+        /// </summary>
         NoDefault
     }
 
@@ -86,7 +125,13 @@ namespace Todoist.NET
     /// </summary>
     public enum LoginResult
     {
+        /// <summary>
+        /// LoginFailed returned when login fail (usually due to wrong password/email)
+        /// </summary>
         LoginFailed,
+        /// <summary>
+        /// LoginSucceeded when login succeeded
+        /// </summary>
         LoginSucceeded
     }
 
@@ -95,11 +140,30 @@ namespace Todoist.NET
     /// </summary>
     public struct TimeZoneOffset
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public string GmtString;
+        /// <summary>
+        /// 
+        /// </summary>
         public int HourOffset;
+        /// <summary>
+        /// 
+        /// </summary>
         public bool IsDaylightSavingsTime;
+        /// <summary>
+        /// 
+        /// </summary>
         public int MinuteOffset;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="gmtString"></param>
+        /// <param name="hourOffset"></param>
+        /// <param name="minuteOffset"></param>
+        /// <param name="isDaylightSavingsTime"></param>
         public TimeZoneOffset(string gmtString,
                               int hourOffset,
                               int minuteOffset,
@@ -136,81 +200,129 @@ namespace Todoist.NET
         private string[] _timeZone;
         private TimeZoneOffset _timeZoneOffset;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public int Id
         {
             get { return _id; }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string Email
         {
             get { return _email; }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string FullName
         {
             get { return _fullName; }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string ApiToken
         {
             get { return _apiToken; }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public StartPage? StartPage
         {
             get { return _startPage; }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string[] TimeZone
         {
             get { return _timeZone; }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public TimeZoneOffset TimeZoneOffset
         {
             get { return _timeZoneOffset; }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public TimeFormat TimeFormat
         {
             get { return _timeFormat; }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public DateFormat DateFormat
         {
             get { return _dateFormat; }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public SortOrder SortOrder
         {
             get { return _sortOrder; }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string NotifoAccount
         {
             get { return _notifoAccount; }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string MobileNumber
         {
             get { return _mobileNumber; }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string MobileHost
         {
             get { return _mobileHost; }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string PremiumUntil
         {
             get { return _premiumUntil; }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public DefaultReminder DefaultReminder
         {
             get { return _defaultReminder; }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string JsonData
         {
             get { return _jsonData; }
@@ -220,9 +332,12 @@ namespace Todoist.NET
 
         #region User
 
+        /// <summary>
+        /// 
+        /// </summary>
         public User()
         {
-            ResetUser();
+            Logout();
         }
 
         /// <summary>
@@ -234,7 +349,7 @@ namespace Todoist.NET
         /// <exception cref="LoginFailedException">If <paramref name="email"/> or <paramref name="password"/> is incorrect.</exception>
         public LoginResult Login(string email, string password)
         {
-            ResetUser();
+            Logout();
             if (String.IsNullOrWhiteSpace(email) || String.IsNullOrWhiteSpace(password))
                 throw new ArgumentNullException();
 
@@ -255,7 +370,10 @@ namespace Todoist.NET
             return LoginResult.LoginSucceeded;
         }
 
-        public void ResetUser()
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Logout()
         {
             _id = 0;
             _email = "";
@@ -558,7 +676,7 @@ namespace Todoist.NET
         /// Updates how the projects are ordered.
         /// </summary>
         /// <param name="order"></param>
-        public void UpdateProjectOrders(int[] order)
+        public void UpdateProjectOrdering(int[] order)
         {
             CheckLoginStatus();
 
@@ -926,7 +1044,7 @@ namespace Todoist.NET
         /// </summary>
         /// <param name="itemId">The item id from where the notes are to be found.</param>
         /// <returns>Returns all notes of an item.</returns>
-        public List<Note> GetNotesFromItemId(int itemId)
+        public List<Note> GetNotesByItemId(int itemId)
         {
             CheckLoginStatus();
 

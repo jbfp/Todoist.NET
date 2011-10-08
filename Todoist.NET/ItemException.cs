@@ -30,23 +30,43 @@ using System.Runtime.Serialization;
 
 namespace Todoist.NET
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [Serializable]
     public class ItemException : SystemException
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public ItemException()
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="message"></param>
         public ItemException(string message)
             : base(message)
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="innerException"></param>
         public ItemException(string message, Exception innerException)
             : base(message, innerException)
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="context"></param>
         protected ItemException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {

@@ -30,8 +30,25 @@ using Newtonsoft.Json.Linq;
 
 namespace Todoist.NET
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class Item
     {
+        private readonly string _content;
+        private readonly string _dateString;
+        private readonly string _dueDate;
+        private readonly int _id;
+        private readonly int _indent;
+        private readonly bool _isChecked;
+        private readonly bool _isInHistory;
+        private readonly bool _isSubTasksCollapsed;
+        private readonly int _itemOrder;
+        private readonly int _ownerId;
+        private readonly int _priority;
+        private readonly int _projectId;
+        private readonly string _jsonData;
+
         /// <summary>
         /// 
         /// </summary>
@@ -44,33 +61,123 @@ namespace Todoist.NET
             if (o.First == null)
                 throw new ArgumentNullException(jsonData);
 
-            Id = (int) o.SelectToken("id");
-            OwnerId = (int) o.SelectToken("user_id");
-            IsSubTasksCollapsed = Convert.ToBoolean((int) o.SelectToken("collapsed"));
-            IsInHistory = Convert.ToBoolean((int) o.SelectToken("in_history"));
-            Priority = (int) o.SelectToken("priority");
-            ItemOrder = (int) o.SelectToken("item_order");
-            Content = (string) o.SelectToken("content");
-            Indent = (int) o.SelectToken("indent");
-            ProjectId = (int) o.SelectToken("project_id");
-            IsChecked = Convert.ToBoolean((int) o.SelectToken("checked"));
-            DateString = (string) o.SelectToken("date_string");
-            DueDate = (string) o.SelectToken("due_date");
-            JsonData = jsonData;
+            _id = (int) o.SelectToken("id");
+            _ownerId = (int) o.SelectToken("user_id");
+            _isSubTasksCollapsed = Convert.ToBoolean((int) o.SelectToken("collapsed"));
+            _isInHistory = Convert.ToBoolean((int) o.SelectToken("in_history"));
+            _priority = (int) o.SelectToken("priority");
+            _itemOrder = (int) o.SelectToken("item_order");
+            _content = (string) o.SelectToken("content");
+            _indent = (int) o.SelectToken("indent");
+            _projectId = (int) o.SelectToken("project_id");
+            _isChecked = Convert.ToBoolean((int) o.SelectToken("checked"));
+            _dateString = (string) o.SelectToken("date_string");
+            _dueDate = (string) o.SelectToken("due_date");
+            _jsonData = jsonData;
         }
 
-        public int Id { get; private set; }
-        public int OwnerId { get; private set; }
-        public bool IsSubTasksCollapsed { get; private set; }
-        public bool IsInHistory { get; private set; }
-        public int Priority { get; private set; }
-        public int ItemOrder { get; private set; }
-        public string Content { get; private set; }
-        public int Indent { get; private set; }
-        public int ProjectId { get; private set; }
-        public bool IsChecked { get; private set; }
-        public string DateString { get; private set; }
-        public string DueDate { get; private set; }
-        public string JsonData { get; private set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public int Id
+        {
+            get { return _id; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int OwnerId
+        {
+            get { return _ownerId; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool IsSubTasksCollapsed
+        {
+            get { return _isSubTasksCollapsed; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool IsInHistory
+        {
+            get { return _isInHistory; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int Priority
+        {
+            get { return _priority; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int ItemOrder
+        {
+            get { return _itemOrder; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Content
+        {
+            get { return _content; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int Indent
+        {
+            get { return _indent; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int ProjectId
+        {
+            get { return _projectId; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool IsChecked
+        {
+            get { return _isChecked; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string DateString
+        {
+            get { return _dateString; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string DueDate
+        {
+            get { return _dueDate; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string JsonData
+        {
+            get { return _jsonData; }
+        }
     }
 }

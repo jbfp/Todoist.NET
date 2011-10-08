@@ -27,6 +27,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Todoist.NET.Demo
@@ -74,6 +75,7 @@ namespace Todoist.NET.Demo
         {
             _projects = new List<Project>();
             _user = new User();
+
             try
             {
                 if (String.IsNullOrWhiteSpace(emailBox.Text) || String.IsNullOrWhiteSpace(passwordBox.Text))
@@ -111,6 +113,8 @@ namespace Todoist.NET.Demo
 
             if (listBox.Items.Count > 0)
                 listBox.SelectedIndex = 0;
+
+            Project __project = _projects.First();
 
             listBox.Select();
         }
