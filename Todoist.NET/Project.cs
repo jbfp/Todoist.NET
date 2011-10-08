@@ -1,184 +1,250 @@
-﻿#region License
-
-// Copyright (c) 2011 Jakob Pedersen
-//
-// Permission is hereby granted, free of charge, to any person
-// obtaining a copy of this software and associated documentation
-// files (the "Software"), to deal in the Software without
-// restriction, including without limitation the rights to use,
-// copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the
-// Software is furnished to do so, subject to the following
-// conditions:
-//
-// The above copyright notice and this permission notice shall be
-// included in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
-// OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
-// HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-// WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-// OTHER DEALINGS IN THE SOFTWARE.
-
-#endregion
-
-using Newtonsoft.Json.Linq;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="Project.cs" company="Jakob Pedersen">
+//   Copyright (c) Jakob Pedersen
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Todoist.NET
 {
+    using Newtonsoft.Json.Linq;
+
     /// <summary>
-    /// 
+    /// The project.
     /// </summary>
     public class Project
     {
-        private readonly int _cacheCount;
-        private readonly Color _color;
-        private readonly int _id;
-        private readonly int _indent;
-        private readonly int _itemOrder;
-        private readonly string _jsonData;
-        private readonly string _name;
-        private readonly int _ownerId;
-        private readonly bool _isGroup;
-        private readonly int _isSubProjectsCollapsed;
+        #region Constants and Fields
 
+        /// <summary>
+        /// The cache count.
+        /// </summary>
+        private readonly int cacheCount;
+
+        /// <summary>
+        /// The color.
+        /// </summary>
+        private readonly Color color;
+
+        /// <summary>
+        /// The id.
+        /// </summary>
+        private readonly int id;
+
+        /// <summary>
+        /// The indent.
+        /// </summary>
+        private readonly int indent;
+
+        /// <summary>
+        /// The is group.
+        /// </summary>
+        private readonly bool isGroup;
+
+        /// <summary>
+        /// The is sub projects collapsed.
+        /// </summary>
+        private readonly int isSubProjectsCollapsed;
+
+        /// <summary>
+        /// The item order.
+        /// </summary>
+        private readonly int itemOrder;
+
+        /// <summary>
+        /// The json data.
+        /// </summary>
+        private readonly string jsonData;
+
+        /// <summary>
+        /// The name.
+        /// </summary>
+        private readonly string name;
+
+        /// <summary>
+        /// The owner id.
+        /// </summary>
+        private readonly int ownerId;
+
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Project"/> class.
+        /// </summary>
+        /// <param name="jsonData">
+        /// The JSON data.
+        /// </param>
         internal Project(string jsonData)
         {
             JObject o = JObject.Parse(jsonData);
 
-            _ownerId = (int) o.SelectToken("user_id");
-            _name = (string) o.SelectToken("name");
-            _indent = (int) o.SelectToken("indent");
-            _cacheCount = (int) o.SelectToken("cache_count");
-            _id = (int) o.SelectToken("id");
-            _itemOrder = (int) o.SelectToken("item_order");
-            _isSubProjectsCollapsed = (int) o.SelectToken("collapsed");
-            _isGroup = _name[0] == '*';
+            this.ownerId = (int)o.SelectToken("user_id");
+            this.name = (string)o.SelectToken("name");
+            this.indent = (int)o.SelectToken("indent");
+            this.cacheCount = (int)o.SelectToken("cache_count");
+            this.id = (int)o.SelectToken("id");
+            this.itemOrder = (int)o.SelectToken("item_order");
+            this.isSubProjectsCollapsed = (int)o.SelectToken("collapsed");
+            this.isGroup = this.name[0] == '*';
 
-            switch ((string) o.SelectToken("color"))
+            switch ((string)o.SelectToken("color"))
             {
                 case "#bde876":
-                    _color = new Color(TodoistColor.Green);
+                    this.color = new Color(TodoistColor.Green);
                     break;
                 case "#ff8581":
-                    _color = new Color(TodoistColor.Red);
+                    this.color = new Color(TodoistColor.Red);
                     break;
                 case "#ffc472":
-                    _color = new Color(TodoistColor.Orange);
+                    this.color = new Color(TodoistColor.Orange);
                     break;
                 case "#faed75":
-                    _color = new Color(TodoistColor.Yellow);
+                    this.color = new Color(TodoistColor.Yellow);
                     break;
                 case "#a8c9e5":
-                    _color = new Color(TodoistColor.Blue);
+                    this.color = new Color(TodoistColor.Blue);
                     break;
                 case "#999999":
-                    _color = new Color(TodoistColor.MediumGrey);
+                    this.color = new Color(TodoistColor.MediumGrey);
                     break;
                 case "#e3a8e5":
-                    _color = new Color(TodoistColor.Pink);
+                    this.color = new Color(TodoistColor.Pink);
                     break;
                 case "#dddddd":
-                    _color = new Color(TodoistColor.LightGrey);
+                    this.color = new Color(TodoistColor.LightGrey);
                     break;
                 case "#fc603c":
-                    _color = new Color(TodoistColor.Flame);
+                    this.color = new Color(TodoistColor.Flame);
                     break;
                 case "#ffcc00":
-                    _color = new Color(TodoistColor.Gold);
+                    this.color = new Color(TodoistColor.Gold);
                     break;
                 case "#74e8d4":
-                    _color = new Color(TodoistColor.LightOpal);
+                    this.color = new Color(TodoistColor.LightOpal);
                     break;
                 case "#3cd6fc":
-                    _color = new Color(TodoistColor.BrilliantCerulean);
+                    this.color = new Color(TodoistColor.BrilliantCerulean);
                     break;
             }
 
-            _jsonData = jsonData;
+            this.jsonData = jsonData;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public int Id
-        {
-            get { return _id; }
-        }
+        #endregion
+
+        #region Public Properties
 
         /// <summary>
-        /// 
-        /// </summary>
-        public int OwnerId
-        {
-            get { return _ownerId; }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Name
-        {
-            get { return _name; }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public bool IsGroup
-        {
-            get { return _isGroup; }
-        }
-
-        /// <summary>
-        /// 
+        /// The cache count.
         /// </summary>
         public int CacheCount
         {
-            get { return _cacheCount; }
+            get
+            {
+                return this.cacheCount;
+            }
         }
 
         /// <summary>
-        /// 
+        /// The color.
         /// </summary>
         public Color Color
         {
-            get { return _color; }
+            get
+            {
+                return this.color;
+            }
         }
 
         /// <summary>
-        /// 
+        /// The id.
+        /// </summary>
+        public int Id
+        {
+            get
+            {
+                return this.id;
+            }
+        }
+
+        /// <summary>
+        /// The indent.
         /// </summary>
         public int Indent
         {
-            get { return _indent; }
+            get
+            {
+                return this.indent;
+            }
         }
 
         /// <summary>
-        /// 
+        /// The is group.
         /// </summary>
-        public int ItemOrder
+        public bool IsGroup
         {
-            get { return _itemOrder; }
+            get
+            {
+                return this.isGroup;
+            }
         }
 
         /// <summary>
-        /// 
+        /// The is subprojects collapsed.
         /// </summary>
         public bool IsSubprojectsCollapsed
         {
-            get { return _isSubProjectsCollapsed == 1; }
+            get
+            {
+                return this.isSubProjectsCollapsed == 1;
+            }
         }
 
         /// <summary>
-        /// 
+        /// The item order.
+        /// </summary>
+        public int ItemOrder
+        {
+            get
+            {
+                return this.itemOrder;
+            }
+        }
+
+        /// <summary>
+        /// The json data.
         /// </summary>
         public string JsonData
         {
-            get { return _jsonData; }
+            get
+            {
+                return this.jsonData;
+            }
         }
+
+        /// <summary>
+        /// The name.
+        /// </summary>
+        public string Name
+        {
+            get
+            {
+                return this.name;
+            }
+        }
+
+        /// <summary>
+        /// The owner id.
+        /// </summary>
+        public int OwnerId
+        {
+            get
+            {
+                return this.ownerId;
+            }
+        }
+
+        #endregion
     }
 }

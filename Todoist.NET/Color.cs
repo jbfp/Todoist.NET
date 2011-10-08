@@ -1,139 +1,155 @@
-﻿#region License
-
-// Copyright (c) 2011 Jakob Pedersen
-//
-// Permission is hereby granted, free of charge, to any person
-// obtaining a copy of this software and associated documentation
-// files (the "Software"), to deal in the Software without
-// restriction, including without limitation the rights to use,
-// copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the
-// Software is furnished to do so, subject to the following
-// conditions:
-//
-// The above copyright notice and this permission notice shall be
-// included in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
-// OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
-// HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-// WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-// OTHER DEALINGS IN THE SOFTWARE.
-
-#endregion
-
-using System;
-using System.ComponentModel;
-using System.Drawing;
-using System.Globalization;
-using System.Linq;
-using System.Text.RegularExpressions;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="Color.cs" company="Jakob Pedersen">
+//   Copyright (c) Jakob Pedersen
+// </copyright>
+// <summary>
+//   Defines the Color type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Todoist.NET
 {
+    using System;
+    using System.ComponentModel;
+    using System.Globalization;
+    using System.Linq;
+    using System.Text.RegularExpressions;
+
     /// <summary>
-    /// 
+    /// Enum of the valid colors Todoist.com allows.
     /// </summary>
     public enum TodoistColor
     {
         /// <summary>
-        /// 
+        /// Green #bde876
         /// </summary>
         Green = 0,
+
         /// <summary>
-        /// 
+        /// Red #ff8581
         /// </summary>
         Red = 1,
+
         /// <summary>
-        /// 
+        /// Orange #ffc472
         /// </summary>
         Orange = 2,
+
         /// <summary>
-        /// 
+        /// Yellow #faed75
         /// </summary>
         Yellow = 3,
+
         /// <summary>
-        /// 
+        /// Blue #a8c9e5
         /// </summary>
         Blue = 4,
+
         /// <summary>
-        /// 
+        /// Medium grey #999999
         /// </summary>
         MediumGrey = 5,
+
         /// <summary>
-        /// 
+        /// Pink #e3a8e5
         /// </summary>
         Pink = 6,
+
         /// <summary>
-        /// 
+        /// Light grey #dddddd
         /// </summary>
         LightGrey = 7,
+
         /// <summary>
-        /// 
+        /// Flame #fc603c
         /// </summary>
         Flame = 8,
+
         /// <summary>
-        /// 
+        /// Gold #ffcc00
         /// </summary>
         Gold = 9,
+
         /// <summary>
-        /// 
+        /// Light opal #74e8d4
         /// </summary>
         LightOpal = 10,
+
         /// <summary>
-        /// 
+        /// Brilliant cerulean #3cd6fc
         /// </summary>
         BrilliantCerulean = 11
     }
 
     /// <summary>
-    /// 
+    /// A necessary class, since Todoist.com only allows for 12 different colors 
+    /// and is very inconsistent in the API, whether a hex string or 'id' is to be returned.
     /// </summary>
     public class Color
     {
-        private readonly string _htmlColor;
-        private readonly System.Drawing.Color _rgb;
-
-        private readonly TodoistColor _todoistColor;
+        /// <summary>
+        /// Color in hex.
+        /// </summary>
+        private readonly string htmlColor;
 
         /// <summary>
-        /// 
+        /// Color in <see cref="System.Drawing.Color"/>.
         /// </summary>
-        /// <param name="todoistColor"></param>
+        private readonly System.Drawing.Color rgb;
+
+        /// <summary>
+        /// Color in <see cref="Color"/>.
+        /// </summary>
+        private readonly TodoistColor todoistColor;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Color"/> class.
+        /// </summary>
+        /// <param name="todoistColor">
+        /// The <see cref="TodoistColor"/>.
+        /// </param>
         public Color(TodoistColor todoistColor)
         {
-            _todoistColor = todoistColor;
-            _htmlColor = ConvertTodoistColorToString(TodoistColor);
-            _rgb = ConvertStringToColor(_htmlColor);
+            this.todoistColor = todoistColor;
+            this.htmlColor = ConvertTodoistColorToString(TodoistColor);
+            this.rgb = ConvertStringToColor(this.htmlColor);
         }
 
         /// <summary>
-        /// 
+        /// Gets <see cref="todoistColor"/>.
         /// </summary>
         public TodoistColor TodoistColor
         {
-            get { return _todoistColor; }
+            get { return this.todoistColor; }
         }
 
         /// <summary>
-        /// 
+        /// Gets color in hex.
         /// </summary>
         public string HtmlColor
         {
-            get { return _htmlColor; }
+            get { return this.htmlColor; }
         }
 
         /// <summary>
-        /// 
+        /// Gets color in RGB.
         /// </summary>
         public System.Drawing.Color Rgb
         {
-            get { return _rgb; }
+            get { return this.rgb; }
         }
 
+        /// <summary>
+        /// Converts <see cref="TodoistColor"/> to <see cref="string"/>.
+        /// </summary>
+        /// <param name="todoistColor">
+        /// The todoist color.
+        /// </param>
+        /// <returns>
+        /// <see cref="TodoistColor"/> in <see cref="string"/>.
+        /// </returns>
+        /// <exception cref="InvalidEnumArgumentException">Throws <see cref="InvalidEnumArgumentException"/> 
+        /// if the parameter is not a valid color.</exception>
         private static string ConvertTodoistColorToString(TodoistColor todoistColor)
         {
             switch (todoistColor)
@@ -170,16 +186,20 @@ namespace Todoist.NET
         /// <summary>
         /// Convert a hex string to a .NET Color object.
         /// </summary>
-        /// <param name="htmlColor">A hex string: "FFFFFF", "#000000"</param>
+        /// <param name="htmlColor">
+        /// A hex string: "FFFFFF", "#000000".
+        /// </param>
+        /// <returns>
+        /// The convert string to color.
+        /// </returns>
         private static System.Drawing.Color ConvertStringToColor(string htmlColor)
         {
             string hc = ExtractHexDigits(htmlColor);
             if (hc.Length != 6)
             {
-                // you can choose whether to throw an exception
-                //throw new ArgumentException("hexColor is not exactly 6 digits.");
                 return System.Drawing.Color.Empty;
             }
+
             string r = hc.Substring(0, 2);
             string g = hc.Substring(2, 2);
             string b = hc.Substring(4, 2);
@@ -187,32 +207,37 @@ namespace Todoist.NET
             try
             {
                 int ri
-                    = Int32.Parse(r, NumberStyles.HexNumber);
+                    = int.Parse(r, NumberStyles.HexNumber);
                 int gi
-                    = Int32.Parse(g, NumberStyles.HexNumber);
+                    = int.Parse(g, NumberStyles.HexNumber);
                 int bi
-                    = Int32.Parse(b, NumberStyles.HexNumber);
+                    = int.Parse(b, NumberStyles.HexNumber);
                 color = System.Drawing.Color.FromArgb(ri, gi, bi);
             }
             catch (FormatException)
             {
-                // you can choose whether to throw an exception
-                //throw new ArgumentException("Conversion failed.");
                 return System.Drawing.Color.Empty;
             }
+
             return color;
         }
 
         /// <summary>
         /// Extract only the hex digits from a string.
         /// </summary>
+        /// <param name="input">
+        /// The input.
+        /// </param>
+        /// <returns>
+        /// The extracted hex digits.
+        /// </returns>
         private static string ExtractHexDigits(string input)
         {
             // remove any characters that are not digits (like #)
             var isHexDigit
                 = new Regex("[abcdefABCDEF\\d]+", RegexOptions.Compiled);
             return input.Where(c => isHexDigit.IsMatch(c.ToString()))
-                .Aggregate("", (current, c) => current + c.ToString());
+                .Aggregate(string.Empty, (current, c) => current + c.ToString());
         }
     }
 }

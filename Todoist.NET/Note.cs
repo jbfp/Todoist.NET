@@ -1,53 +1,52 @@
-﻿#region License
-
-// Copyright (c) 2011 Jakob Pedersen
-//
-// Permission is hereby granted, free of charge, to any person
-// obtaining a copy of this software and associated documentation
-// files (the "Software"), to deal in the Software without
-// restriction, including without limitation the rights to use,
-// copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the
-// Software is furnished to do so, subject to the following
-// conditions:
-//
-// The above copyright notice and this permission notice shall be
-// included in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
-// OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
-// HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-// WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-// OTHER DEALINGS IN THE SOFTWARE.
-
-#endregion
-
-using Newtonsoft.Json.Linq;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="Note.cs" company="Jakob Pedersen">
+//   Copyright (c) Jakob Pedersen
+// </copyright>
+// <summary>
+//   Defines the Note type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Todoist.NET
 {
+    using Newtonsoft.Json.Linq;
+
     /// <summary>
     /// 
     /// </summary>
     public class Note
     {
-        private readonly string _content;
-        private readonly int _id;
-        private readonly int _itemId;
-        private readonly string _jsonData;
+        /// <summary>
+        /// </summary>
+        private readonly string content;
 
+        /// <summary>
+        /// </summary>
+        private readonly int id;
+
+        /// <summary>
+        /// </summary>
+        private readonly int itemId;
+
+        /// <summary>
+        /// </summary>
+        private readonly string jsonData;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Note"/> class.
+        /// </summary>
+        /// <param name="jsonData">
+        /// The json data.
+        /// </param>
         internal Note(string jsonData)
         {
             JArray o = JArray.Parse(jsonData);
 
-            _id = (int) o.SelectToken("id");
-            _itemId = (int) o.SelectToken("item_id");
-            _content = (string) o.SelectToken("content");
+            this.id = (int)o.SelectToken("id");
+            this.itemId = (int)o.SelectToken("item_id");
+            this.content = (string)o.SelectToken("content");
 
-            _jsonData = jsonData;
+            this.jsonData = jsonData;
         }
 
         /// <summary>
@@ -55,7 +54,7 @@ namespace Todoist.NET
         /// </summary>
         public int Id
         {
-            get { return _id; }
+            get { return this.id; }
         }
 
         /// <summary>
@@ -63,7 +62,7 @@ namespace Todoist.NET
         /// </summary>
         public int ItemId
         {
-            get { return _itemId; }
+            get { return this.itemId; }
         }
 
         /// <summary>
@@ -71,7 +70,7 @@ namespace Todoist.NET
         /// </summary>
         public string Content
         {
-            get { return _content; }
+            get { return this.content; }
         }
 
         /// <summary>
@@ -79,7 +78,7 @@ namespace Todoist.NET
         /// </summary>
         public string JsonData
         {
-            get { return _jsonData; }
+            get { return this.jsonData; }
         }
     }
 }

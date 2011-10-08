@@ -1,183 +1,273 @@
-﻿#region License
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="Item.cs" company="Jakob Pedersen">
+//   Copyright (c) Jakob Pedersen
+// </copyright>
+// <summary>
+//    Defines the Item type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
-// Copyright (c) 2011 Jakob Pedersen
-//
-// Permission is hereby granted, free of charge, to any person
-// obtaining a copy of this software and associated documentation
-// files (the "Software"), to deal in the Software without
-// restriction, including without limitation the rights to use,
-// copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the
-// Software is furnished to do so, subject to the following
-// conditions:
-//
-// The above copyright notice and this permission notice shall be
-// included in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
-// OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
-// HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-// WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-// OTHER DEALINGS IN THE SOFTWARE.
-
-#endregion
-
-using System;
-using Newtonsoft.Json.Linq;
 
 namespace Todoist.NET
 {
+    using System;
+
+    using Newtonsoft.Json.Linq;
+
     /// <summary>
-    /// 
+    /// Todoist.com task (or "item" as it is referred to in the API).
     /// </summary>
     public class Item
     {
-        private readonly string _content;
-        private readonly string _dateString;
-        private readonly string _dueDate;
-        private readonly int _id;
-        private readonly int _indent;
-        private readonly bool _isChecked;
-        private readonly bool _isInHistory;
-        private readonly bool _isSubTasksCollapsed;
-        private readonly int _itemOrder;
-        private readonly int _ownerId;
-        private readonly int _priority;
-        private readonly int _projectId;
-        private readonly string _jsonData;
+        #region Constants and Fields
 
         /// <summary>
-        /// 
+        /// Task text.
         /// </summary>
-        /// <param name="jsonData"></param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="jsonData"/> is null.</exception>
+        private readonly string content;
+
+        /// <summary>
+        /// </summary>
+        private readonly string dateString;
+
+        /// <summary>
+        /// Date the task is due.
+        /// </summary>
+        private readonly string dueDate;
+
+        /// <summary>
+        /// Task's unique id.
+        /// </summary>
+        private readonly int id;
+
+        /// <summary>
+        /// Task's indent level.
+        /// </summary>
+        private readonly int indent;
+
+        /// <summary>
+        /// True if the task has been 'checked' on the website, which usually means it has been completed.
+        /// </summary>
+        private readonly bool isChecked;
+
+        /// <summary>
+        /// True if the task has been put in the history, which usually means it has been completed.
+        /// </summary>
+        private readonly bool isInHistory;
+
+        /// <summary>
+        /// Are the subtasks collapsed.
+        /// </summary>
+        private readonly bool isSubTasksCollapsed;
+
+        /// <summary>
+        /// Task's weight in the order of tasks.
+        /// </summary>
+        private readonly int itemOrder;
+
+        /// <summary>
+        /// The JSON data of the task.
+        /// </summary>
+        private readonly string jsonData;
+
+        /// <summary>
+        /// The id of the user who owns the task.
+        /// </summary>
+        private readonly int ownerId;
+
+        /// <summary>
+        /// The priority of the task.
+        /// </summary>
+        private readonly int priority;
+
+        /// <summary>
+        /// The id of the project the task belongs to.
+        /// </summary>
+        private readonly int projectId;
+
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Item"/> class. 
+        /// </summary>
+        /// <param name="jsonData">
+        /// A task's JSON data.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown when <paramref name="jsonData"/> is null.
+        /// </exception>
         public Item(string jsonData)
         {
             JObject o = JObject.Parse(jsonData);
 
             if (o.First == null)
+            {
                 throw new ArgumentNullException(jsonData);
+            }
 
-            _id = (int) o.SelectToken("id");
-            _ownerId = (int) o.SelectToken("user_id");
-            _isSubTasksCollapsed = Convert.ToBoolean((int) o.SelectToken("collapsed"));
-            _isInHistory = Convert.ToBoolean((int) o.SelectToken("in_history"));
-            _priority = (int) o.SelectToken("priority");
-            _itemOrder = (int) o.SelectToken("item_order");
-            _content = (string) o.SelectToken("content");
-            _indent = (int) o.SelectToken("indent");
-            _projectId = (int) o.SelectToken("project_id");
-            _isChecked = Convert.ToBoolean((int) o.SelectToken("checked"));
-            _dateString = (string) o.SelectToken("date_string");
-            _dueDate = (string) o.SelectToken("due_date");
-            _jsonData = jsonData;
+            this.id = (int)o.SelectToken("id");
+            this.ownerId = (int)o.SelectToken("user_id");
+            this.isSubTasksCollapsed = Convert.ToBoolean((int)o.SelectToken("collapsed"));
+            this.isInHistory = Convert.ToBoolean((int)o.SelectToken("in_history"));
+            this.priority = (int)o.SelectToken("priority");
+            this.itemOrder = (int)o.SelectToken("item_order");
+            this.content = (string)o.SelectToken("content");
+            this.indent = (int)o.SelectToken("indent");
+            this.projectId = (int)o.SelectToken("project_id");
+            this.isChecked = Convert.ToBoolean((int)o.SelectToken("checked"));
+            this.dateString = (string)o.SelectToken("date_string");
+            this.dueDate = (string)o.SelectToken("due_date");
+            this.jsonData = jsonData;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public int Id
-        {
-            get { return _id; }
-        }
+        #endregion
+
+        #region Public Properties
 
         /// <summary>
-        /// 
-        /// </summary>
-        public int OwnerId
-        {
-            get { return _ownerId; }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public bool IsSubtasksCollapsed
-        {
-            get { return _isSubTasksCollapsed; }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public bool IsInHistory
-        {
-            get { return _isInHistory; }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public int Priority
-        {
-            get { return _priority; }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public int ItemOrder
-        {
-            get { return _itemOrder; }
-        }
-
-        /// <summary>
-        /// 
+        /// Gets the text of the task.
         /// </summary>
         public string Content
         {
-            get { return _content; }
+            get
+            {
+                return this.content;
+            }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public int Indent
-        {
-            get { return _indent; }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public int ProjectId
-        {
-            get { return _projectId; }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public bool IsChecked
-        {
-            get { return _isChecked; }
-        }
-
-        /// <summary>
-        /// 
+        /// <summary>  
         /// </summary>
         public string DateString
         {
-            get { return _dateString; }
+            get
+            {
+                return this.dateString;
+            }
         }
 
         /// <summary>
-        /// 
+        /// Gets the date the task is due.
         /// </summary>
         public string DueDate
         {
-            get { return _dueDate; }
+            get
+            {
+                return this.dueDate;
+            }
         }
 
         /// <summary>
-        /// 
+        /// Gets the unique id of the task.
+        /// </summary>
+        public int Id
+        {
+            get
+            {
+                return this.id;
+            }
+        }
+
+        /// <summary>
+        /// Gets the indent level of the task.
+        /// </summary>
+        public int Indent
+        {
+            get
+            {
+                return this.indent;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether the task is checked (is completed) or not.
+        /// </summary>
+        public bool IsChecked
+        {
+            get
+            {
+                return this.isChecked;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether the task is in the history (is completed) or not.
+        /// </summary>
+        public bool IsInHistory
+        {
+            get
+            {
+                return this.isInHistory;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether the subtasks are collapsed or not.
+        /// </summary>
+        public bool IsSubtasksCollapsed
+        {
+            get
+            {
+                return this.isSubTasksCollapsed;
+            }
+        }
+
+        /// <summary>
+        /// Gets the task weight in the order of tasks.
+        /// </summary>
+        public int ItemOrder
+        {
+            get
+            {
+                return this.itemOrder;
+            }
+        }
+
+        /// <summary>
+        /// Gets a string of JSON data.
         /// </summary>
         public string JsonData
         {
-            get { return _jsonData; }
+            get
+            {
+                return this.jsonData;
+            }
         }
+
+        /// <summary>
+        /// Gets the id of the user who owns the task.
+        /// </summary>
+        public int OwnerId
+        {
+            get
+            {
+                return this.ownerId;
+            }
+        }
+
+        /// <summary>
+        /// Gets the task priority.
+        /// </summary>
+        public int Priority
+        {
+            get
+            {
+                return this.priority;
+            }
+        }
+
+        /// <summary>
+        /// Gets the id of the project the task belongs to.
+        /// </summary>
+        public int ProjectId
+        {
+            get
+            {
+                return this.projectId;
+            }
+        }
+
+        #endregion
     }
 }

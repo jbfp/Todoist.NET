@@ -1,47 +1,32 @@
-﻿#region License
-
-// Copyright (c) 2011 Jakob Pedersen
-//
-// Permission is hereby granted, free of charge, to any person
-// obtaining a copy of this software and associated documentation
-// files (the "Software"), to deal in the Software without
-// restriction, including without limitation the rights to use,
-// copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the
-// Software is furnished to do so, subject to the following
-// conditions:
-//
-// The above copyright notice and this permission notice shall be
-// included in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
-// OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
-// HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-// WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-// OTHER DEALINGS IN THE SOFTWARE.
-
-#endregion
-
-using System.Drawing;
-using System.Windows.Forms;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ColorComboBox.cs" company="Jakob Pedersen">
+//   Copyright (c) Jakob Pedersen
+// </copyright>
+// <summary>
+//   Defines the ColorComboBox type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Todoist.NET.Demo
 {
+    using System.Drawing;
+    using System.Windows.Forms;
+
     internal class ColorComboBox : ComboBox
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ColorComboBox"/> class.
+        /// </summary>
         public ColorComboBox()
         {
             DrawMode = DrawMode.OwnerDrawVariable;
-            DrawItem += ComboBoxItemDrawItem;
+            this.DrawItem += this.ComboBoxItemDrawItem;
         }
 
         private void ComboBoxItemDrawItem(object sender, DrawItemEventArgs e)
         {
             e.DrawBackground();
-            var current = (ComboBoxItem) Items[e.Index];
+            var current = (ComboBoxItem)Items[e.Index];
             var boundRect = new Rectangle(e.Bounds.Left, e.Bounds.Top, e.Bounds.Width, e.Bounds.Height);
             e.Graphics.FillRectangle(new SolidBrush(current.Color), boundRect);
         }
@@ -49,6 +34,9 @@ namespace Todoist.NET.Demo
 
     public struct ComboBoxItem
     {
-        public System.Drawing.Color Color { get; set; }
+        /// <summary>
+        /// Gets or sets Color.
+        /// </summary>
+        public Color Color { get; set; }
     }
 }
