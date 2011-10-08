@@ -79,7 +79,7 @@ namespace Todoist.NET.Demo
             this.saveButton = new System.Windows.Forms.Button();
             this.orderBox = new System.Windows.Forms.NumericUpDown();
             this.indentBox = new System.Windows.Forms.NumericUpDown();
-            this.colorComboBox = new ColorComboBox();
+            this.colorComboBox = new Todoist.NET.Demo.ColorComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.orderBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.indentBox)).BeginInit();
             this.SuspendLayout();
@@ -99,7 +99,7 @@ namespace Todoist.NET.Demo
             this.emailBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.emailBox.Location = new System.Drawing.Point(357, 30);
             this.emailBox.Name = "emailBox";
-            this.emailBox.Size = new System.Drawing.Size(100, 20);
+            this.emailBox.Size = new System.Drawing.Size(115, 20);
             this.emailBox.TabIndex = 1;
             this.emailBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.EmailBoxKeyPress);
             // 
@@ -118,7 +118,7 @@ namespace Todoist.NET.Demo
             this.passwordBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.passwordBox.Location = new System.Drawing.Point(357, 69);
             this.passwordBox.Name = "passwordBox";
-            this.passwordBox.Size = new System.Drawing.Size(100, 20);
+            this.passwordBox.Size = new System.Drawing.Size(115, 20);
             this.passwordBox.TabIndex = 3;
             this.passwordBox.UseSystemPasswordChar = true;
             this.passwordBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.PasswordBoxKeyPress);
@@ -126,11 +126,11 @@ namespace Todoist.NET.Demo
             // loginButton
             // 
             this.loginButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.loginButton.Location = new System.Drawing.Point(382, 95);
+            this.loginButton.Location = new System.Drawing.Point(397, 92);
             this.loginButton.Name = "loginButton";
             this.loginButton.Size = new System.Drawing.Size(75, 23);
             this.loginButton.TabIndex = 4;
-            this.loginButton.Text = "LogOn";
+            this.loginButton.Text = "Login";
             this.loginButton.UseVisualStyleBackColor = true;
             this.loginButton.Click += new System.EventHandler(this.LoginButtonClick);
             // 

@@ -28,6 +28,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Windows.Forms;
 
 namespace Todoist.NET.Demo
@@ -83,6 +84,11 @@ namespace Todoist.NET.Demo
 
                 _user.LogOn(emailBox.Text, passwordBox.Text);
             }
+            catch(WebException webException)
+            {
+                MessageBox.Show(webException.Message);
+                return;
+            }
             catch (LogOnFailedException loginFailedException)
             {
                 MessageBox.Show(loginFailedException.Message);
@@ -90,11 +96,11 @@ namespace Todoist.NET.Demo
             }
 
             _projects = _user.GetProjects;
-
+            
             listBox.Items.Clear();
             foreach (Project project in _projects)
             {
-                listBox.Items.Add(project.Name);
+                //listBox.Items.Add(String.Concat(Enumerable.Repeat(" ", project.Indent-1)) + project.Name);
             }
 
             refreshButton.Enabled = true;
@@ -112,11 +118,21 @@ namespace Todoist.NET.Demo
             saveButton.Enabled = true;
 
             if (listBox.Items.Count > 0)
+            {
                 listBox.SelectedIndex = 0;
+            }
 
             listBox.Select();
         }
 
+        /// <summary>
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
         private void ListBoxSelectedIndexChanged(object sender, EventArgs e)
         {
             idBox.Text = _projects.ElementAt(listBox.SelectedIndex).Id.ToString();

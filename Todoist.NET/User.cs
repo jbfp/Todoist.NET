@@ -28,6 +28,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net;
 using System.Text;
 using Newtonsoft.Json.Linq;
 
@@ -332,6 +333,7 @@ namespace Todoist.NET
         /// <param name="password">User's password.</param>
         /// <exception cref="ArgumentNullException">If <paramref name="email"/> or <paramref name="password"/> is null.</exception>
         /// <exception cref="LogOnFailedException">If <paramref name="email"/> or <paramref name="password"/> is incorrect.</exception>
+        /// <exception cref="WebException"></exception>
         public LogOnResult LogOn(string email, string password)
         {
             LogOff();

@@ -37,14 +37,24 @@ namespace Todoist.NET
     public static class Core
     {
         /// <summary>
-        /// 
+        /// Returns JSON data from Todoist.com. Timeout period is 30 seconds.
         /// </summary>
         /// <param name="uri">The <see cref="Uri"/> generated in <see cref="Core.ConstructUri"/></param>
-        /// <returns></returns>
+        /// <exception cref="WebException"></exception>
+        /// <returns><see cref="string"/></returns>
         public static string GetJsonData(Uri uri)
         {
             WebRequest request = WebRequest.Create(uri);
-            var response = (HttpWebResponse) request.GetResponse();
+            request.Timeout = 30000;
+            HttpWebResponse response;
+            try
+            {
+                response = (HttpWebResponse)request.GetResponse();
+            }
+            catch (WebException webException)
+            {
+                throw new WebException(webException.Message);
+            }
             string json;
             using (var sr = new StreamReader(response.GetResponseStream()))
                 json = sr.ReadToEnd();
@@ -52,13 +62,12 @@ namespace Todoist.NET
         }
 
         /// <summary>
-        /// Constructs a URI 
+        /// Constructs a URI for Todoist.com
         /// </summary>
-        /// <param name="query">The URL parameter, e.g. login? or getTimezones?</param>
-        /// <param name="parameters">The parameters for the <paramref name="query"/>, e.g. email="x" and "password="y". 
-        ///                          Must always be separated with an ampersand</param>
-        /// <param name="isSecure">Specifies if the connection to the server must be secure, i.e. https or http. Defaults to http.</param>
-        /// <returns>Returns a <see cref="Uri"/>.</returns>
+        /// <param name="query">Query for todoist.com/API ending with a question mark</param>
+        /// <param name="parameters">URL parameters separated by ampersand</param>
+        /// <param name="isSecure">Http or Https</param>
+        /// <returns><see cref="Uri"/></returns>
         public static Uri ConstructUri(string query, string parameters, bool isSecure)
         {
             string protocol;
