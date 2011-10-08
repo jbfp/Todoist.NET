@@ -1,6 +1,0 @@
-C:\Users\Jakob\Todoist.NET\Todoist.NET\bin\Release\TodoitLib.dll
-C:\Users\Jakob\Todoist.NET\Todoist.NET\bin\Release\TodoitLib.pdb
-C:\Users\Jakob\Todoist.NET\Todoist.NET\bin\Release\Newtonsoft.Json.dll
-C:\Users\Jakob\Todoist.NET\Todoist.NET\obj\Release\ResolveAssemblyReference.cache
-C:\Users\Jakob\Todoist.NET\Todoist.NET\obj\Release\TodoitLib.dll
-C:\Users\Jakob\Todoist.NET\Todoist.NET\obj\Release\TodoitLib.pdb
