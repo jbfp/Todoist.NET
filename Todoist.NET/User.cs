@@ -25,12 +25,12 @@ namespace Todoist.NET
         /// <summary>
         /// Info page.
         /// </summary>
-        InfoPage,
+        InfoPage, 
 
         /// <summary>
         /// Blank page.
         /// </summary>
-        Blank,
+        Blank, 
 
         /// <summary>
         /// Project of choice (NYI).
@@ -46,7 +46,7 @@ namespace Todoist.NET
         /// <summary>
         /// 24-hour clock format, e.g. 13:00.
         /// </summary>
-        TwentyFourHourClock = 0,
+        TwentyFourHourClock = 0, 
 
         /// <summary>
         /// 12-hour clock format, e.g. 1 pm.
@@ -62,7 +62,7 @@ namespace Todoist.NET
         /// <summary>
         /// DD-MM-YYY date format.
         /// </summary>
-        DdMmYyyy = 0,
+        DdMmYyyy = 0, 
 
         /// <summary>
         /// MM-DD-YYY date format.
@@ -78,7 +78,7 @@ namespace Todoist.NET
         /// <summary>
         /// Oldest tasks/items.
         /// </summary>
-        OldestDatesFirst = 0,
+        OldestDatesFirst = 0, 
 
         /// <summary>
         /// Newest tasks/items.
@@ -94,17 +94,17 @@ namespace Todoist.NET
         /// <summary>
         /// Remind by email.
         /// </summary>
-        Email,
+        Email, 
 
         /// <summary>
         /// Remind by mobile phone.
         /// </summary>
-        Mobile,
+        Mobile, 
 
         /// <summary>
         /// Remind by Notifo account.
         /// </summary>
-        Notifo,
+        Notifo, 
 
         /// <summary>
         /// No reminders.
@@ -120,7 +120,7 @@ namespace Todoist.NET
         /// <summary>
         /// LogOnFailed returned when login fail (usually due to wrong password/email).
         /// </summary>
-        LogOnFailed,
+        LogOnFailed, 
 
         /// <summary>
         /// LogOnSucceeded when login succeeded.
@@ -449,13 +449,13 @@ namespace Todoist.NET
         public static void Register(string email, string fullName, string password, string timeZone)
         {
             Uri uri = Core.ConstructUri(
-                "register?",
+                "register?", 
                 string.Format(
-                    "email={0}&" + "full_name={1}&" + "password={2}&" + "timezone={3}",
-                    email,
-                    fullName,
-                    password,
-                    timeZone),
+                    "email={0}&" + "full_name={1}&" + "password={2}&" + "timezone={3}", 
+                    email, 
+                    fullName, 
+                    password, 
+                    timeZone), 
                 true);
             string jsonResponse = Core.GetJsonData(uri);
 
@@ -513,15 +513,15 @@ namespace Todoist.NET
             }
 
             Uri uri = Core.ConstructUri(
-                "addItem?",
+                "addItem?", 
                 string.Format(
-                    "token={0}&project_id={1}&content={2}&priority={3}&indent={4}&item_order={5}",
-                    this.ApiToken,
-                    projectId,
-                    content,
-                    priority,
-                    indent,
-                    itemOrder),
+                    "token={0}&project_id={1}&content={2}&priority={3}&indent={4}&item_order={5}", 
+                    this.ApiToken, 
+                    projectId, 
+                    content, 
+                    priority, 
+                    indent, 
+                    itemOrder), 
                 false);
             string jsonResponse = Core.GetJsonData(uri);
 
@@ -587,10 +587,36 @@ namespace Todoist.NET
 
             sb.Append("]");
             Uri uri = Core.ConstructUri(
-                "completeItems?",
-                string.Format("token={0}&ids={1}&in_history={2}", this.ApiToken, sb, Convert.ToInt32(sendToHistory)),
+                "completeItems?", 
+                string.Format("token={0}&ids={1}&in_history={2}", this.ApiToken, sb, Convert.ToInt32(sendToHistory)), 
                 false);
             Core.GetJsonData(uri);
+        }
+
+        /// <summary>
+        /// Create a new label.
+        /// </summary>
+        /// <param name="labelName">
+        /// The name of the new label.
+        /// </param>
+        /// <param name="color">
+        /// The color.
+        /// </param>
+        public void CreateLabel(string labelName, LabelColor color)
+        {
+            this.CheckLoginStatus();
+
+            // Validation
+            if (string.IsNullOrWhiteSpace(labelName))
+            {
+                throw new ArgumentNullException("labelName");
+            }
+
+            Core.GetJsonData(
+                Core.ConstructUri(
+                    "addLabel?", 
+                    string.Format("token={0}&name={1}&color={2}", this.apiToken, labelName, color.GetHashCode()), 
+                    false));
         }
 
         /// <summary>
@@ -630,14 +656,14 @@ namespace Todoist.NET
             }
 
             Uri uri = Core.ConstructUri(
-                "addProject?",
+                "addProject?", 
                 string.Format(
-                    "token={0}&name={1}&indent={2}&order={3}&color={4}",
-                    this.ApiToken,
-                    projectName,
-                    indent,
-                    order,
-                    color.TodoistColor.GetHashCode()),
+                    "token={0}&name={1}&indent={2}&order={3}&color={4}", 
+                    this.ApiToken, 
+                    projectName, 
+                    indent, 
+                    order, 
+                    color.TodoistColor.GetHashCode()), 
                 false);
             string jsonResponse = Core.GetJsonData(uri);
             if (jsonResponse == "\"ERROR_NAME_IS_EMPTY\"")
@@ -677,6 +703,29 @@ namespace Todoist.NET
             sb.Append("]");
             Uri uri = Core.ConstructUri("deleteItems?", string.Format("token={0}&ids={1}", this.ApiToken, sb), false);
             Core.GetJsonData(uri);
+        }
+
+        /// <summary>
+        /// Delete a specified label.
+        /// </summary>
+        /// <param name="name">
+        /// The name of the label.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// If the name is null or whitespace, a <see cref="ArgumentNullException"/> is thrown.
+        /// </exception>
+        public void DeleteLabel(string name)
+        {
+            this.CheckLoginStatus();
+
+            // Validation
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentNullException("name");
+            }
+
+            Core.GetJsonData(
+                Core.ConstructUri("deleteLabel?", string.Format("token={0}&name={1}", this.apiToken, name), false));
         }
 
         /// <summary>
@@ -733,13 +782,9 @@ namespace Todoist.NET
             this.CheckLoginStatus();
 
             Uri uri = Core.ConstructUri(
-                "getAllCompletedItems?",
+                "getAllCompletedItems?", 
                 string.Format(
-                    "token={0}&project_id={1}&label={2}&interval={3}", 
-                    this.ApiToken, 
-                    projectId, 
-                    label, 
-                    interval),
+                    "token={0}&project_id={1}&label={2}&interval={3}", this.ApiToken, projectId, label, interval), 
                 false);
             string jsonResponse = Core.GetJsonData(uri);
 
@@ -815,6 +860,23 @@ namespace Todoist.NET
 
             JArray o = JArray.Parse(jsonResponse);
             return new ReadOnlyCollection<Item>(o.Root.Select(item => new Item(item.ToString())).ToList());
+        }
+
+        /// <summary>
+        /// Gets a <see cref="ReadOnlyCollection{T}"/> of labels the user has created.
+        /// </summary>
+        /// <returns>
+        /// Returns a <see cref="ReadOnlyCollection{T}"/> of labels.
+        /// </returns>
+        public ReadOnlyCollection<Label> GetLabels()
+        {
+            this.CheckLoginStatus();
+
+            Uri uri = Core.ConstructUri("getLabels?", string.Format("token={0}", this.apiToken), false);
+            string jsonResponse = Core.GetJsonData(uri);
+
+            JObject o = JObject.Parse(jsonResponse);
+            return new ReadOnlyCollection<Label>(o.Root.Select(p => new Label(p.First.ToString())).ToList());
         }
 
         /// <summary>
@@ -1009,8 +1071,8 @@ namespace Todoist.NET
             jsonMapping.Append("]}");
 
             Uri uri = Core.ConstructUri(
-                "moveItems?",
-                string.Format("token={0}&project_items={1}&to_project={2}", this.ApiToken, jsonMapping, toProjectId),
+                "moveItems?", 
+                string.Format("token={0}&project_items={1}&to_project={2}", this.ApiToken, jsonMapping, toProjectId), 
                 false);
             Core.GetJsonData(uri);
         }
@@ -1056,7 +1118,7 @@ namespace Todoist.NET
         /// The item to update.
         /// </param>
         /// <param name="content">
-        /// The new content/text.
+        /// The new content/text. To add the item to a label, append "@labelname".
         /// </param>
         /// <param name="priority">
         /// The new priority.
@@ -1072,15 +1134,15 @@ namespace Todoist.NET
             this.CheckLoginStatus();
 
             Uri uri = Core.ConstructUri(
-                "updateItem?",
+                "updateItem?", 
                 string.Format(
-                    "token={0}&id={1}&content={2}&priority={3}&indent={4}&collapsed={5}",
-                    this.ApiToken,
-                    itemId,
-                    content,
-                    priority,
-                    indent,
-                    Convert.ToInt32(isCollapsed)),
+                    "token={0}&id={1}&content={2}&priority={3}&indent={4}&collapsed={5}", 
+                    this.ApiToken, 
+                    itemId, 
+                    content, 
+                    priority, 
+                    indent, 
+                    Convert.ToInt32(isCollapsed)), 
                 false);
             string jsonResponse = Core.GetJsonData(uri);
 
@@ -1133,6 +1195,63 @@ namespace Todoist.NET
         }
 
         /// <summary>
+        /// Update the color of a specified label.
+        /// </summary>
+        /// <param name="name">
+        /// The name of the label to update.
+        /// </param>
+        /// <param name="color">
+        /// The new color.
+        /// </param>
+        public void UpdateLabelColor(string name, LabelColor color)
+        {
+            this.CheckLoginStatus();
+
+            // Validation
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentNullException("name");
+            }
+
+            Core.GetJsonData(
+                Core.ConstructUri(
+                    "updateLabelColor?", 
+                    string.Format("token={0}&name={1}&color={2}", this.ApiToken, name, color.GetHashCode()), 
+                    false));
+        }
+
+        /// <summary>
+        /// Update the name of a specified label.
+        /// </summary>
+        /// <param name="oldName">
+        /// The old name of the label.
+        /// </param>
+        /// <param name="newName">
+        /// The new name of the label.
+        /// </param>
+        public void UpdateLabelName(string oldName, string newName)
+        {
+            this.CheckLoginStatus();
+
+            // Validation
+            if (string.IsNullOrWhiteSpace(oldName))
+            {
+                throw new ArgumentNullException("oldName");
+            }
+
+            if (string.IsNullOrWhiteSpace(newName))
+            {
+                throw new ArgumentNullException("newName");
+            }
+
+            Core.GetJsonData(
+                Core.ConstructUri(
+                    "updateLabel?", 
+                    string.Format("token={0}&old_name={1}&new_name={2}", this.ApiToken, oldName, newName), 
+                    false));
+        }
+
+        /// <summary>
         /// Update an existing project.
         /// </summary>
         /// <param name="projectId">
@@ -1157,7 +1276,13 @@ namespace Todoist.NET
         /// Toggle group.
         /// </param>
         public void UpdateProject(
-            int projectId, string name, TodoistColor? color, int? indent, int? itemOrder, bool? isCollapsed, bool? isGroup)
+            int projectId, 
+            string name, 
+            TodoistColor? color, 
+            int? indent, 
+            int? itemOrder, 
+            bool? isCollapsed, 
+            bool? isGroup)
         {
             this.CheckLoginStatus();
 
@@ -1180,16 +1305,16 @@ namespace Todoist.NET
             }
 
             Uri uri = Core.ConstructUri(
-                "updateProject?",
+                "updateProject?", 
                 string.Format(
-                    "&project_id={0}&token={1}&name={2}&color={3}&indent={4}&order={5}&collapsed={6}",
-                    projectId,
-                    this.ApiToken,
-                    name,
-                    internalColor.GetHashCode(),
-                    indent,
-                    itemOrder,
-                    Convert.ToInt32(isCollapsed)),
+                    "&project_id={0}&token={1}&name={2}&color={3}&indent={4}&order={5}&collapsed={6}", 
+                    projectId, 
+                    this.ApiToken, 
+                    name, 
+                    internalColor.GetHashCode(), 
+                    indent, 
+                    itemOrder, 
+                    Convert.ToInt32(isCollapsed)), 
                 false);
             string jsonResponse = Core.GetJsonData(uri);
 
@@ -1300,29 +1425,29 @@ namespace Todoist.NET
         /// New startpage
         /// </param>
         public void UpdateUser(
-            string newEmail,
-            string newFullName,
-            string newPassword,
-            string newTimeZone,
-            DateFormat? newDateFormat,
-            TimeFormat? newTimeFormat,
+            string newEmail, 
+            string newFullName, 
+            string newPassword, 
+            string newTimeZone, 
+            DateFormat? newDateFormat, 
+            TimeFormat? newTimeFormat, 
             StartPage? newStartPage)
         {
             this.CheckLoginStatus();
 
             Uri uri = Core.ConstructUri(
-                "updateUser?",
+                "updateUser?", 
                 string.Format(
                     "token={0}&" + "email={1}&" + "full_name={2}&" + "password={3}&" + "timezone={4}&"
-                    + "date_format={5}&" + "time_format={6}&" + "start_page={7}",
-                    this.ApiToken,
-                    newEmail,
-                    newFullName,
-                    newPassword,
-                    newTimeZone,
-                    newDateFormat,
-                    newTimeFormat,
-                    newStartPage),
+                    + "date_format={5}&" + "time_format={6}&" + "start_page={7}", 
+                    this.ApiToken, 
+                    newEmail, 
+                    newFullName, 
+                    newPassword, 
+                    newTimeZone, 
+                    newDateFormat, 
+                    newTimeFormat, 
+                    newStartPage), 
                 true);
 
             string jsonResponse = Core.GetJsonData(uri);
@@ -1422,9 +1547,9 @@ namespace Todoist.NET
 
             JToken timeZoneString = o.SelectToken("tz_offset");
             this.timeZoneOffset = new TimeZoneOffset(
-                timeZoneString.First.Value<string>(),
-                timeZoneString.First.Next.Value<int>(),
-                timeZoneString.First.Next.Next.Value<int>(),
+                timeZoneString.First.Value<string>(), 
+                timeZoneString.First.Next.Value<int>(), 
+                timeZoneString.First.Next.Next.Value<int>(), 
                 timeZoneString.First.Next.Next.Next.Value<bool>());
 
             switch ((string)o.SelectToken("default_reminder"))

@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Label.cs" />
     <Compile Include="LogOnFailedException.cs" />
     <Compile Include="ItemException.cs" />
     <Compile Include="Core.cs" />
