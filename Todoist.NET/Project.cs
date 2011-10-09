@@ -2,6 +2,9 @@
 // <copyright file="Project.cs" company="Jakob Pedersen">
 //   Copyright (c) Jakob Pedersen
 // </copyright>
+// <summary>
+//   Defines the Project type.
+// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace Todoist.NET

@@ -13,6 +13,7 @@ namespace Todoist.NET.Demo
     using System.Collections.Generic;
     using System.Linq;
     using System.Net;
+    using System.Reflection;
     using System.Windows.Forms;
 
     public partial class Form1 : Form
@@ -107,6 +108,14 @@ namespace Todoist.NET.Demo
             }
 
             listBox.Select();
+
+            var items = this.user.GetUncompletedItemsByProjectId(this.projects.First(t => t.Name == "goldproject").Id);
+            var item = items[0];
+
+            foreach (PropertyInfo info in item.GetType().GetProperties())
+            {
+                Console.WriteLine("{0}: {1}", info.Name, info.GetValue(item, null));
+            }
         }
 
         private void GetProjects()

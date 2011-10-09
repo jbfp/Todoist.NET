@@ -7,7 +7,6 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-
 namespace Todoist.NET
 {
     using System;
@@ -27,11 +26,12 @@ namespace Todoist.NET
         private readonly string content;
 
         /// <summary>
+        /// The raw string of the due date.
         /// </summary>
         private readonly string dateString;
 
         /// <summary>
-        /// Date the task is due.
+        /// The next due date.
         /// </summary>
         private readonly string dueDate;
 
@@ -138,6 +138,7 @@ namespace Todoist.NET
         }
 
         /// <summary>  
+        /// Gets the raw string of the due date.
         /// </summary>
         public string DateString
         {
@@ -148,7 +149,7 @@ namespace Todoist.NET
         }
 
         /// <summary>
-        /// Gets the date the task is due.
+        /// Gets the next due date.
         /// </summary>
         public string DueDate
         {

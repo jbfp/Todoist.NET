@@ -3,7 +3,7 @@
 //   Copyright (c) Jakob Pedersen
 // </copyright>
 // <summary>
-//   
+//   Defines the User type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -11,7 +11,6 @@ namespace Todoist.NET
 {
     using System;
     using System.Collections.ObjectModel;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Net;
     using System.Text;
@@ -445,7 +444,6 @@ namespace Todoist.NET
         /// The new user's time zone, e.g. "Europe/Copenhagen".
         /// </param>
         /// <exception cref="RegistrationFailedException">
-        /// <see cref="RegistrationFailedException"/>
         /// Throws <see cref="RegistrationFailedException"/> if the registration failed.
         /// </exception>
         public static void Register(string email, string fullName, string password, string timeZone)
@@ -737,7 +735,11 @@ namespace Todoist.NET
             Uri uri = Core.ConstructUri(
                 "getAllCompletedItems?",
                 string.Format(
-                    "token={0}&project_id={1}&label={2}&interval={3}", this.ApiToken, projectId, label, interval),
+                    "token={0}&project_id={1}&label={2}&interval={3}", 
+                    this.ApiToken, 
+                    projectId, 
+                    label, 
+                    interval),
                 false);
             string jsonResponse = Core.GetJsonData(uri);
 
@@ -869,6 +871,7 @@ namespace Todoist.NET
         /// The id of the project where the uncompleted items are from
         /// </param>
         /// <returns>
+        /// The <see cref="ReadOnlyCollection{T}"/> of uncompleted items from a specific project.
         /// </returns>
         public ReadOnlyCollection<Item> GetUncompletedItemsByProjectId(int projectId)
         {
@@ -1050,14 +1053,19 @@ namespace Todoist.NET
         /// Update an existing item.
         /// </summary>
         /// <param name="itemId">
+        /// The item to update.
         /// </param>
         /// <param name="content">
+        /// The new content/text.
         /// </param>
         /// <param name="priority">
+        /// The new priority.
         /// </param>
         /// <param name="indent">
+        /// The new indent-level.
         /// </param>
         /// <param name="isCollapsed">
+        /// Toggle collapsed.
         /// </param>
         public void UpdateItem(int itemId, string content, int? priority, int? indent, bool? isCollapsed)
         {
@@ -1086,8 +1094,10 @@ namespace Todoist.NET
         /// Update the order of a project's tasks.
         /// </summary>
         /// <param name="projectId">
+        /// The project to update.
         /// </param>
         /// <param name="itemIds">
+        /// The item ids in the order wished.
         /// </param>
         public void UpdateItemOrdering(int projectId, int[] itemIds)
         {
@@ -1235,6 +1245,7 @@ namespace Todoist.NET
         /// Update recurring dates and set them to next date regarding an item's date_string.
         /// </summary>
         /// <param name="itemIds">
+        /// The ids of the items to update.
         /// </param>
         public void UpdateRecurringDate(int[] itemIds)
         {
@@ -1355,6 +1366,7 @@ namespace Todoist.NET
         /// The json data.
         /// </param>
         /// <returns>
+        /// Returns a new project. The constructor for project(string jsonData) analyses the data itself.
         /// </returns>
         private static Project AnalyseProjectJson(string jsonData)
         {

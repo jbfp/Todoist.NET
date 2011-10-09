@@ -12,23 +12,27 @@ namespace Todoist.NET
     using Newtonsoft.Json.Linq;
 
     /// <summary>
-    /// 
+    /// Todoist.com Note type.
     /// </summary>
     public class Note
     {
         /// <summary>
+        /// Note content.
         /// </summary>
         private readonly string content;
 
         /// <summary>
+        /// Unique note id.
         /// </summary>
         private readonly int id;
 
         /// <summary>
+        /// Id of the item the note belongs to.
         /// </summary>
         private readonly int itemId;
 
         /// <summary>
+        /// The JSON data for the note.
         /// </summary>
         private readonly string jsonData;
 
@@ -50,7 +54,7 @@ namespace Todoist.NET
         }
 
         /// <summary>
-        /// 
+        /// Gets the id of the note.
         /// </summary>
         public int Id
         {
@@ -58,7 +62,7 @@ namespace Todoist.NET
         }
 
         /// <summary>
-        /// 
+        /// Gets the id of the item the note belongs to.
         /// </summary>
         public int ItemId
         {
@@ -66,7 +70,7 @@ namespace Todoist.NET
         }
 
         /// <summary>
-        /// 
+        /// Gets the content/text of the note.
         /// </summary>
         public string Content
         {
@@ -74,7 +78,7 @@ namespace Todoist.NET
         }
 
         /// <summary>
-        /// 
+        /// Gets the JSON data for the note.
         /// </summary>
         public string JsonData
         {
