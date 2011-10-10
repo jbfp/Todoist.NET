@@ -394,7 +394,7 @@ namespace Todoist.NET.Demo
             this.Controls.Add(this.emailBox);
             this.Controls.Add(this.emailLabel);
             this.Name = "Form1";
-            this.Text = "TodoLibDemo";
+            this.Text = "Todoist.NET Demo";
             ((System.ComponentModel.ISupportInitialize)(this.orderBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.indentBox)).EndInit();
             this.ResumeLayout(false);
