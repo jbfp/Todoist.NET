@@ -148,7 +148,7 @@ namespace Todoist.NET
         #region Public Properties
 
         /// <summary>
-        /// The cache count.
+        /// Gets the amount of tasks in the project.
         /// </summary>
         public int CacheCount
         {
@@ -159,7 +159,7 @@ namespace Todoist.NET
         }
 
         /// <summary>
-        /// The color.
+        /// Gets the color-label of the project.
         /// </summary>
         public Color Color
         {
@@ -170,7 +170,7 @@ namespace Todoist.NET
         }
 
         /// <summary>
-        /// The id.
+        /// Gets the unique project id.
         /// </summary>
         public int Id
         {
@@ -181,7 +181,7 @@ namespace Todoist.NET
         }
 
         /// <summary>
-        /// The indent.
+        /// Gets the indent-level.
         /// </summary>
         public int Indent
         {
@@ -192,7 +192,7 @@ namespace Todoist.NET
         }
 
         /// <summary>
-        /// The is group.
+        /// Gets a value indicating whether the project is a group or not.
         /// </summary>
         public bool IsGroup
         {
@@ -203,7 +203,7 @@ namespace Todoist.NET
         }
 
         /// <summary>
-        /// The is subprojects collapsed.
+        /// Gets a value indicating whether the project is collapsed, hiding subprojects.
         /// </summary>
         public bool IsSubprojectsCollapsed
         {
@@ -214,7 +214,7 @@ namespace Todoist.NET
         }
 
         /// <summary>
-        /// The item order.
+        /// Gets the weight in the ordering of the items.
         /// </summary>
         public int ItemOrder
         {
@@ -225,7 +225,7 @@ namespace Todoist.NET
         }
 
         /// <summary>
-        /// The json data.
+        /// Gets the JSON data of the project.
         /// </summary>
         public string JsonData
         {
@@ -236,7 +236,7 @@ namespace Todoist.NET
         }
 
         /// <summary>
-        /// The name.
+        /// Gets the name of the project.
         /// </summary>
         public string Name
         {
@@ -247,7 +247,7 @@ namespace Todoist.NET
         }
 
         /// <summary>
-        /// The owner id.
+        /// Gets the id of the user who owns the project.
         /// </summary>
         public int OwnerId
         {

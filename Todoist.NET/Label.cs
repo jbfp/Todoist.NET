@@ -16,13 +16,44 @@ namespace Todoist.NET
     /// </summary>
     public enum LabelColor
     {
+        /// <summary>
+        /// Green - Hex: #019412
+        /// </summary>
         Green = 0,
+
+        /// <summary>
+        /// Gold - Hex: #a39d01
+        /// </summary>
         Gold = 1,
+
+        /// <summary>
+        /// Orange - Hex: #e73d02
+        /// </summary>
         Orange = 2,
+
+        /// <summary>
+        /// Pink - Hex: #e702a4
+        /// </summary>
         Pink = 3,
+
+        /// <summary>
+        /// Violet - Hex: #9902e7
+        /// </summary>
         Violet = 4,
-        Blue = 5,
+
+        /// <summary>
+        /// Purple - Hex: #1d02e7
+        /// </summary>
+        Purple = 5,
+
+        /// <summary>
+        /// Light blue - Hex: #0082c5
+        /// </summary>
         LightBlue = 6,
+
+        /// <summary>
+        /// Grey - Hex: #555555
+        /// </summary>
         Grey = 7
     }
 

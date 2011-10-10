@@ -449,9 +449,9 @@ namespace Todoist.NET
         public static void Register(string email, string fullName, string password, string timeZone)
         {
             Uri uri = Core.ConstructUri(
-                "register?", 
+                "register?",
                 string.Format(
-                    "email={0}&" + "full_name={1}&" + "password={2}&" + "timezone={3}", 
+                    "email={0}&" + "full_name={1}&" + "password={2}&" + "timezone={3}",
                     email, 
                     fullName, 
                     password, 
